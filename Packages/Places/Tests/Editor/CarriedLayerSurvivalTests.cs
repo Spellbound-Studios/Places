@@ -13,7 +13,6 @@ namespace Spellbound.Places.Editor.Tests {
     public class CarriedLayerSurvivalTests {
         private const string CarriedAssembly = "asm: Spellbound.Places.Tests.CarriedFixture";
         private const string AbsentAssembly = "asm: Spellbound.Places.Tests.CarriedFixture.Absent";
-        private const string EvidenceFolder = "D:/dev/unity/spellbound/_probes/handoff-23/evidence/w4a-1";
 
         private PlacesTestFolder _folder;
 
@@ -34,9 +33,7 @@ namespace Spellbound.Places.Editor.Tests {
 
             place.Layers[0].LayerName = "renamed";
             EditorUtility.SetDirty(place);
-            CopyToEvidence(path, "before-save.asset.txt");
             AssetDatabase.SaveAssets();
-            CopyToEvidence(path, "after-save.asset.txt");
 
             var saved = File.ReadAllText(path);
             StringAssert.Contains("class: FixtureCarriedLayer", saved);
@@ -96,12 +93,6 @@ namespace Spellbound.Places.Editor.Tests {
             var place = AssetDatabase.LoadAssetAtPath<PlaceDefinition>(path);
             Assert.IsNotNull(place, path + " did not load as " + nameof(PlaceDefinition));
             return place;
-        }
-
-        private static void CopyToEvidence(string path, string fileName) {
-            if (Directory.Exists(EvidenceFolder)) {
-                File.Copy(path, EvidenceFolder + "/" + fileName, true);
-            }
         }
     }
 }
