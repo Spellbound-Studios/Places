@@ -1,0 +1,14 @@
+{
+  "name": "PlacesGym.Editor",
+  "rootNamespace": "PlacesGym.Editor",
+  "references": ["PlacesGym", "Spellbound.Places", "Spellbound.Core", "Spellbound.Core.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
