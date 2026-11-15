@@ -1,0 +1,19 @@
+{
+  "name": "com.spellboundstudios.places",
+  "version": "0.0.0",
+  "displayName": "Spellbound.Places",
+  "description": "A place as typed layers kept in Unity serialization, composed by adjacency rules and validated and previewed through Core's authoring contract.",
+  "unity": "6000.3",
+  "author": {
+    "name": "Spellbound Studios",
+    "url": "https://github.com/Spellbound-Studios/Places"
+  },
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Places Sample",
+      "description": "Shows the package's front door in use.",
+      "path": "Samples~/PlacesSample"
+    }
+  ]
+}

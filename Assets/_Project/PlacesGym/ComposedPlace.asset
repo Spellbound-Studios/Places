@@ -1,0 +1,579 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7316afbde43bee64f84278bb5cea29e6, type: 3}
+  m_Name: ComposedPlace
+  m_EditorClassIdentifier: Spellbound.Places::Spellbound.Places.PlaceDefinition
+  layers:
+  - rid: 1581126656056360960
+  references:
+    version: 2
+    RefIds:
+    - rid: 1581126656056360960
+      type: {class: ArrangementLayer, ns: Spellbound.Places.Arrangement, asm: Spellbound.Places}
+      data:
+        layerName: arrangement
+        gridSize: 7
+        parts:
+        - partName: arch_shaft
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 1
+        - partName: arch_treasure_shaft
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 1
+        - partName: crossroad_brazier
+          faces:
+            east: 2
+            west: 2
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: dead_end_barrels
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: -1
+            north: 2
+            south: 1
+        - partName: dead_end_loop
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 1
+        - partName: dead_end_treasure
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: -1
+            north: 2
+            south: 1
+        - partName: hook_shaft_cave
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 1
+        - partName: merchant
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 1
+        - partName: no_feature_fallback
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 1
+        - partName: path_bend_ne
+          faces:
+            east: 2
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 1
+        - partName: path_broken_ns
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: path_fork_treasure
+          faces:
+            east: 2
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: path_straight_ns
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: path_they_are_coming
+          faces:
+            east: 1
+            west: 2
+            up: 1
+            down: 1
+            north: 2
+            south: 1
+        - partName: rope_shaft
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 1
+        - partName: big_cave
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 2
+            north: 2
+            south: 1
+        - partName: brazier_vault
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: Cage
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: main_shaft_bottom
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 1
+        - partName: main_shaft_bottom_v2
+          faces:
+            east: 1
+            west: 2
+            up: 1
+            down: 1
+            north: 1
+            south: 2
+        - partName: chokedamp_vault
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: crumbling_seam
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: curved_detour
+          faces:
+            east: 2
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 1
+        - partName: curved_path
+          faces:
+            east: 2
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 1
+        - partName: rope_drop
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 2
+            north: 1
+            south: 3
+        - partName: filled_in_staircase
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 2
+            south: 1
+        - partName: Landing
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 3
+        - partName: misty_maze
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: ramp_gallery
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 3
+            south: 3
+        - partName: Ratchet
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 4
+            north: 1
+            south: 3
+        - partName: ratchet_descent
+          faces:
+            east: 1
+            west: 1
+            up: 4
+            down: 1
+            north: 1
+            south: 3
+        - partName: rotten_gallery
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: Scales
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: signal_lock
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: stair_descent
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 3
+        - partName: stair_head
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 2
+            north: 1
+            south: 3
+        - partName: stairway
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 2
+            south: 1
+        - partName: straight_incomplete
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: straight_path
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: straight_path_timbers
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 2
+            south: 2
+        - partName: swing_chasm
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: Tightrope
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 2
+            south: 1
+        - partName: toll_bridge
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: toll_gate
+          faces:
+            east: 1
+            west: 3
+            up: 1
+            down: 1
+            north: 1
+            south: 1
+        - partName: vent_forge
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: warden_hall
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: Well
+          faces:
+            east: 1
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 3
+        - partName: shaft_open
+          faces:
+            east: 1
+            west: 1
+            up: 2
+            down: 1
+            north: 2
+            south: 1
+        - partName: spiral_ramp
+          faces:
+            east: 2
+            west: 1
+            up: 2
+            down: 1
+            north: 1
+            south: 1
+        - partName: stairs_ramp
+          faces:
+            east: 1
+            west: 2
+            up: 2
+            down: 1
+            north: 2
+            south: 1
+        - partName: treasure_room
+          faces:
+            east: 2
+            west: 1
+            up: 1
+            down: 1
+            north: 1
+            south: 1
+        strata:
+        - pool:
+          - partName: big_cave
+            weight: 10
+          - partName: path_bend_ne
+            weight: 1
+          - partName: path_straight_ns
+            weight: 1
+          - partName: path_they_are_coming
+            weight: 1
+          - partName: path_fork_treasure
+            weight: 1
+          - partName: crossroad_brazier
+            weight: 1
+          - partName: dead_end_loop
+            weight: 1
+          - partName: curved_detour
+            weight: 1
+          - partName: curved_path
+            weight: 1
+          - partName: straight_incomplete
+            weight: 1
+          - partName: straight_path
+            weight: 1
+          - partName: straight_path_timbers
+            weight: 1
+          - partName: no_feature_fallback
+            weight: 1
+          oneOfParts:
+          - Cage
+          - brazier_vault
+          - signal_lock
+          - Ratchet
+          - Scales
+          - toll_bridge
+          - toll_gate
+          - chokedamp_vault
+          - swing_chasm
+          - rotten_gallery
+          - warden_hall
+          - crumbling_seam
+        - pool:
+          - partName: spiral_ramp
+            weight: 10
+          - partName: arch_treasure_shaft
+            weight: 3
+          - partName: hook_shaft_cave
+            weight: 3
+          - partName: stairway
+            weight: 1
+          - partName: filled_in_staircase
+            weight: 1
+          - partName: stairs_ramp
+            weight: 1
+          - partName: crossroad_brazier
+            weight: 1
+          - partName: path_they_are_coming
+            weight: 1
+          - partName: path_straight_ns
+            weight: 1
+          - partName: path_bend_ne
+            weight: 1
+          - partName: path_fork_treasure
+            weight: 1
+          - partName: curved_detour
+            weight: 1
+          - partName: curved_path
+            weight: 1
+          - partName: straight_incomplete
+            weight: 1
+          - partName: straight_path
+            weight: 1
+          - partName: straight_path_timbers
+            weight: 1
+          - partName: no_feature_fallback
+            weight: 1
+          oneOfParts:
+          - merchant
+          - Cage
+          - brazier_vault
+          - signal_lock
+          - stair_head
+          - Ratchet
+          - Well
+          - Scales
+          - toll_bridge
+          - toll_gate
+          - chokedamp_vault
+          - swing_chasm
+          - vent_forge
+          - rotten_gallery
+          - warden_hall
+          - crumbling_seam
+          - misty_maze
+          - Landing
+          - stairs_ramp
+          - Tightrope
+          - filled_in_staircase
+        - pool:
+          - partName: stair_descent
+            weight: 1
+          - partName: ratchet_descent
+            weight: 1
+          - partName: ramp_gallery
+            weight: 4
+          - partName: curved_detour
+            weight: 1
+          - partName: curved_path
+            weight: 1
+          - partName: straight_incomplete
+            weight: 1
+          - partName: straight_path
+            weight: 1
+          - partName: straight_path_timbers
+            weight: 1
+          - partName: no_feature_fallback
+            weight: 1
+          oneOfParts:
+          - merchant
+          - Cage
+          - brazier_vault
+          - signal_lock
+          - stair_head
+          - Ratchet
+          - Well
+          - Scales
+          - toll_bridge
+          - toll_gate
+          - chokedamp_vault
+          - swing_chasm
+          - vent_forge
+          - rotten_gallery
+          - warden_hall
+          - crumbling_seam
+          - misty_maze
+          - Landing
+          - stairs_ramp
+          - Tightrope
+          - filled_in_staircase
+        centrePool:
+        - partName: main_shaft_bottom
+          weight: 1
+        - partName: main_shaft_bottom_v2
+          weight: 1
+        rules: []
+        seed: 1

@@ -1,0 +1,14 @@
+{
+  "name": "Spellbound.Places.Tests.CarriedFixture",
+  "rootNamespace": "Spellbound.Places.Tests.CarriedFixture",
+  "references": ["Spellbound.Places", "Spellbound.Core"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

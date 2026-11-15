@@ -1,0 +1,51 @@
+// Copyright (c) Spellbound Studios. All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using Spellbound.Core.Authoring;
+using UnityEngine;
+
+namespace Spellbound.Places {
+    [CreateAssetMenu(fileName = "Place", menuName = "Spellbound/Places/Place")]
+    public class PlaceDefinition : ScriptableObject, IAuthoredDefinition {
+        [SerializeReference] private List<PlaceLayer> layers = new();
+
+        public IReadOnlyList<PlaceLayer> Layers => layers;
+
+        public TLayer AddLayer<TLayer>(TLayer layer) where TLayer : PlaceLayer {
+            if (layer == null) {
+                throw new ArgumentNullException(nameof(layer));
+            }
+
+            layers.Add(layer);
+            return layer;
+        }
+
+        public void Validate(ValidationReport report) {
+            if (report == null) {
+                throw new ArgumentNullException(nameof(report));
+            }
+
+            var layerNames = new HashSet<string>(StringComparer.Ordinal);
+
+            for (var index = 0; index < layers.Count; index++) {
+                var layer = layers[index];
+
+                if (layer == null) {
+                    continue;
+                }
+
+                var location = "layers[" + index + "]";
+
+                if (string.IsNullOrWhiteSpace(layer.LayerName)) {
+                    report.Error(PlaceFindingCodes.LayerNameEmpty, location + " has no layer name", location);
+                } else if (!layerNames.Add(layer.LayerName)) {
+                    report.Error(PlaceFindingCodes.LayerNameDuplicate,
+                        location + " repeats the layer name '" + layer.LayerName + "'", location);
+                }
+
+                layer.Validate(report, location);
+            }
+        }
+    }
+}
