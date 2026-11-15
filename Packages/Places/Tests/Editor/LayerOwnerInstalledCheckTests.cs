@@ -121,6 +121,43 @@ namespace Spellbound.Places.Editor.Tests {
             Object.DestroyImmediate(place);
         }
 
+        [Test]
+        public void AnEmptySlotAheadOfACarriedLayerIsNeverToldToRemoveTheSlot() {
+            var path = _folder.Path("EmptyThenCarried.asset");
+            var place = ScriptableObject.CreateInstance<PlaceDefinition>();
+            ((List<PlaceLayer>)place.Layers).Add(null);
+            place.AddLayer(new FixtureCarriedLayer { LayerName = "carried", label = "ore", weight = 7 });
+            AssetDatabase.CreateAsset(place, path);
+            AssetDatabase.SaveAssets();
+
+            var text = File.ReadAllText(path);
+            Assert.AreEqual(1, Regex.Matches(text, Regex.Escape(CarriedAssembly)).Count, text);
+            File.WriteAllText(path, text.Replace(CarriedAssembly, AbsentAssembly));
+            LogAssert.Expect(LogType.Warning,
+                new Regex("^Missing types referenced from component PlaceDefinition on game object"));
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            var loaded = AssetDatabase.LoadAssetAtPath<PlaceDefinition>(path);
+
+            Assert.IsNotNull(loaded, path);
+            Assert.IsTrue(SerializationUtility.HasManagedReferencesWithMissingTypes(loaded));
+            Assert.IsNull(loaded.Layers[0]);
+            Assert.IsNull(loaded.Layers[1]);
+
+            var report = Check(loaded);
+
+            Assert.AreEqual(0, report.Count(FindingSeverity.Error), report.ToText());
+            var carried = report.Findings.Where(finding => finding.Code == PlaceFindingCodes.LayerCarried).ToArray();
+            CollectionAssert.AreEqual(new[] { "layers[0]", "layers[1]" },
+                carried.Select(finding => finding.Location).ToArray(), report.ToText());
+            foreach (var finding in carried) {
+                Assert.AreEqual(FindingSeverity.Information, finding.Severity);
+                StringAssert.Contains("cannot be told apart", finding.Message);
+            }
+
+            var lines = new LayerOwnerInstalledCheck().PreviewLines(loaded);
+            CollectionAssert.AreEqual(new[] { "1 layers carried" }, lines);
+        }
+
         private static ValidationReport Check(PlaceDefinition place) {
             var report = new ValidationReport("place");
             new LayerOwnerInstalledCheck().Check(place, report);

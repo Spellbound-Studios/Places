@@ -22,22 +22,17 @@ namespace Spellbound.Places.Editor.Tests {
 
         [Test]
         public void ThePreviewListsLayersAndTheGrid() {
-            var layer = _place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
-            var composed = PlacesKit.Compose(layer.ToDescription(), layer.Seed);
-            var expected = composed.ToText().Split('\n');
+            _place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
 
             var preview = new PlaceDefinitionPreviewer().Preview(_place);
 
             Assert.AreEqual("Clean: 1 layers", preview.Summary);
             Assert.AreEqual("layers[0] ArrangementLayer 'arrangement'", preview.Lines[0]);
             Assert.AreEqual("stratum 0", preview.Lines[1]);
-            for (var row = 1; row <= 3; row++) {
-                Assert.AreEqual(expected[row], preview.Lines[1 + row]);
-                Assert.AreEqual(3, preview.Lines[1 + row].Split(' ').Length, preview.Lines[1 + row]);
-            }
-
-            Assert.AreEqual("#", preview.Lines[3].Split(' ')[1]);
-            Assert.AreEqual("contradictions: " + composed.Contradictions.Count, preview.Lines[5]);
+            Assert.AreEqual("end@3 end@1 end@3", preview.Lines[2]);
+            Assert.AreEqual("end@3 # end@1", preview.Lines[3]);
+            Assert.AreEqual("end@0 end@1 end@3", preview.Lines[4]);
+            Assert.AreEqual("contradictions: 0", preview.Lines[5]);
             Assert.AreEqual(6, preview.Lines.Count, string.Join("\n", preview.Lines));
         }
 
@@ -62,8 +57,7 @@ namespace Spellbound.Places.Editor.Tests {
 
             Assert.AreEqual(9UL, layer.Seed);
             CollectionAssert.AreEqual(first.Lines, second.Lines);
-            var expected = PlacesKit.Compose(layer.ToDescription(), 9UL).ToText().Split('\n');
-            Assert.AreEqual(expected[1], first.Lines[2]);
+            Assert.AreEqual("end@2 end@3 end@1", first.Lines[2]);
         }
 
         [Test]
