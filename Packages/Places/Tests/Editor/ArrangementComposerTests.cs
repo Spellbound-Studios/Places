@@ -10,6 +10,7 @@ using static Spellbound.Places.Editor.Tests.ArrangementFixtures;
 namespace Spellbound.Places.Editor.Tests {
     public class ArrangementComposerTests {
         private const string EmptiedDomainReason = "no part fits the faces required by its neighbours";
+        private const string EmptyPoolReason = "the cell's pool has no part it may hold";
 
         private static readonly HorizontalDirection[] Directions = {
             HorizontalDirection.North, HorizontalDirection.East, HorizontalDirection.South, HorizontalDirection.West
@@ -101,8 +102,12 @@ namespace Spellbound.Places.Editor.Tests {
         [Test]
         public void AFixedCellRuleIsHonoured() {
             var rules = new CellRule[] {
-                new FixedCellRule { cell = new CellAddress(3, 1, 0), partName = SecondClosedPart, rotationSteps = 2 },
-                new FixedCellRule { cell = new CellAddress(0, 4, 0), partName = FirstClosedPart, rotationSteps = -1 }
+                new FixedCellRule {
+                    cell = new CellAddress(3, 1, 0), partName = SecondClosedPartName, rotationSteps = 2
+                },
+                new FixedCellRule {
+                    cell = new CellAddress(0, 4, 0), partName = FirstClosedPartName, rotationSteps = -1
+                }
             };
 
             for (var seed = 0UL; seed < 10UL; seed++) {
@@ -110,9 +115,9 @@ namespace Spellbound.Places.Editor.Tests {
 
                 var pinned = result.Cell(new CellAddress(3, 1, 0));
                 Assert.AreEqual(CompositionCellState.Placed, pinned.State);
-                Assert.AreEqual(SecondClosedPart, pinned.PartName);
+                Assert.AreEqual(SecondClosedPartName, pinned.PartName);
                 Assert.AreEqual(2, pinned.RotationSteps);
-                Assert.AreEqual(FirstClosedPart, result.Cell(new CellAddress(0, 4, 0)).PartName);
+                Assert.AreEqual(FirstClosedPartName, result.Cell(new CellAddress(0, 4, 0)).PartName);
                 Assert.AreEqual(0, result.Contradictions.Count);
                 Assert.AreEqual(22, result.OrdinaryCellsAttempted);
             }
@@ -121,11 +126,13 @@ namespace Spellbound.Places.Editor.Tests {
         [Test]
         public void AFixedRotationIsKeptAndTheClashIsReported() {
             var rules = new CellRule[] {
-                new FixedCellRule { cell = new CellAddress(0, 0, 0), partName = FirstClosedPart, rotationSteps = 0 },
+                new FixedCellRule {
+                    cell = new CellAddress(0, 0, 0), partName = FirstClosedPartName, rotationSteps = 0
+                },
                 new FixedCellRule { cell = new CellAddress(1, 0, 0), partName = DeadEndPartName, rotationSteps = 0 }
             };
-            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPart), DeadEndPart() },
-                new[] { Stratum(new[] { Entry(FirstClosedPart) }) }, null, rules);
+            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPartName), DeadEndPart() },
+                new[] { Stratum(new[] { Entry(FirstClosedPartName) }) }, null, rules);
 
             var result = ArrangementComposer.Compose(arrangement, 7UL);
 
@@ -134,7 +141,7 @@ namespace Spellbound.Places.Editor.Tests {
             Assert.AreEqual(0, clashing.RotationSteps);
             Assert.AreEqual(1, result.Contradictions.Count);
             Assert.AreEqual(new CellAddress(1, 0, 0), result.Contradictions[0].Cell);
-            Assert.AreEqual(FirstClosedPart, result.Cell(new CellAddress(0, 0, 0)).PartName);
+            Assert.AreEqual(FirstClosedPartName, result.Cell(new CellAddress(0, 0, 0)).PartName);
         }
 
         [Test]
@@ -142,18 +149,18 @@ namespace Spellbound.Places.Editor.Tests {
             var rules = new CellRule[] {
                 new WeightedPoolRule {
                     cell = new CellAddress(2, 0, 0),
-                    pool = { Entry(SecondClosedPart, 3f) }
+                    pool = { Entry(SecondClosedPartName, 3f) }
                 }
             };
-            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPart), ClosedPart(SecondClosedPart) },
-                new[] { Stratum(new[] { Entry(FirstClosedPart) }) }, null, rules);
+            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPartName), ClosedPart(SecondClosedPartName) },
+                new[] { Stratum(new[] { Entry(FirstClosedPartName) }) }, null, rules);
 
             for (var seed = 0UL; seed < 10UL; seed++) {
                 var result = ArrangementComposer.Compose(arrangement, seed);
 
-                Assert.AreEqual(SecondClosedPart, result.Cell(new CellAddress(2, 0, 0)).PartName);
-                Assert.AreEqual(1, CountPlaced(result, SecondClosedPart, 0));
-                Assert.AreEqual(7, CountPlaced(result, FirstClosedPart, 0));
+                Assert.AreEqual(SecondClosedPartName, result.Cell(new CellAddress(2, 0, 0)).PartName);
+                Assert.AreEqual(1, CountPlaced(result, SecondClosedPartName, 0));
+                Assert.AreEqual(7, CountPlaced(result, FirstClosedPartName, 0));
                 Assert.AreEqual(0, result.Contradictions.Count);
             }
         }
@@ -161,13 +168,13 @@ namespace Spellbound.Places.Editor.Tests {
         [Test]
         public void AnAllowedRegionRuleKeepsThePartInside() {
             var region = new CellRegion { minimum = new CellAddress(0, 0, 0), maximum = new CellAddress(1, 4, 0) };
-            var rules = new CellRule[] { new AllowedRegionRule { partName = SecondClosedPart, region = region } };
+            var rules = new CellRule[] { new AllowedRegionRule { partName = SecondClosedPartName, region = region } };
             var placedInside = 0;
 
             for (var seed = 0UL; seed < 20UL; seed++) {
                 var result = ArrangementComposer.Compose(TwoPartPool(5, rules), seed);
 
-                foreach (var cell in result.Cells.Where(cell => cell.PartName == SecondClosedPart)) {
+                foreach (var cell in result.Cells.Where(cell => cell.PartName == SecondClosedPartName)) {
                     Assert.IsTrue(region.Contains(cell.Address), cell.Address.ToString());
                     placedInside++;
                 }
@@ -181,12 +188,16 @@ namespace Spellbound.Places.Editor.Tests {
         [Test]
         public void IncompatibleFixedNeighboursAreReported() {
             var rules = new CellRule[] {
-                new FixedCellRule { cell = new CellAddress(0, 0, 0), partName = FirstClosedPart, rotationSteps = 0 },
-                new FixedCellRule { cell = new CellAddress(2, 0, 0), partName = FirstClosedPart, rotationSteps = 0 },
+                new FixedCellRule {
+                    cell = new CellAddress(0, 0, 0), partName = FirstClosedPartName, rotationSteps = 0
+                },
+                new FixedCellRule {
+                    cell = new CellAddress(2, 0, 0), partName = FirstClosedPartName, rotationSteps = 0
+                },
                 new FixedCellRule { cell = new CellAddress(1, 0, 0), partName = CorridorPartName, rotationSteps = -1 }
             };
-            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPart), CorridorPart() },
-                new[] { Stratum(new[] { Entry(FirstClosedPart) }) }, null, rules);
+            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPartName), CorridorPart() },
+                new[] { Stratum(new[] { Entry(FirstClosedPartName) }) }, null, rules);
 
             var result = ArrangementComposer.Compose(arrangement, 3UL);
 
@@ -197,9 +208,9 @@ namespace Spellbound.Places.Editor.Tests {
 
         [Test]
         public void TheGridEdgeRequiresNoConnection() {
-            var arrangement = Describe(5, new[] { ClosedPart(FirstClosedPart), CorridorPart(), DeadEndPart() },
+            var arrangement = Describe(5, new[] { ClosedPart(FirstClosedPartName), CorridorPart(), DeadEndPart() },
                 new[] {
-                    Stratum(new[] { Entry(FirstClosedPart), Entry(CorridorPartName, 4f), Entry(DeadEndPartName) })
+                    Stratum(new[] { Entry(FirstClosedPartName), Entry(CorridorPartName, 4f), Entry(DeadEndPartName) })
                 });
             var corridorsOnTheEdge = 0;
 
@@ -231,12 +242,12 @@ namespace Spellbound.Places.Editor.Tests {
         [Test]
         public void AVerticalFaceConstrainsTheCellBelow() {
             var arrangement = Describe(3,
-                new[] { ShaftDownPart(), ShaftUpPart(), ClosedPart(FirstClosedPart) },
+                new[] { ShaftDownPart(), ShaftUpPart(), ClosedPart(FirstClosedPartName) },
                 new[] {
-                    Stratum(new[] { Entry(ShaftDownPartName), Entry(FirstClosedPart) }),
-                    Stratum(new[] { Entry(ShaftUpPartName), Entry(FirstClosedPart) })
+                    Stratum(new[] { Entry(ShaftDownPartName), Entry(FirstClosedPartName) }),
+                    Stratum(new[] { Entry(ShaftUpPartName), Entry(FirstClosedPartName) })
                 },
-                new[] { Entry(FirstClosedPart) });
+                new[] { Entry(FirstClosedPartName) });
             var shafts = 0;
 
             for (var seed = 0UL; seed < 20UL; seed++) {
@@ -252,7 +263,7 @@ namespace Spellbound.Places.Editor.Tests {
                     }
                 }
 
-                Assert.AreEqual(FirstClosedPart, result.Cell(new CellAddress(1, 1, 1)).PartName);
+                Assert.AreEqual(FirstClosedPartName, result.Cell(new CellAddress(1, 1, 1)).PartName);
                 Assert.AreEqual(0, result.Contradictions.Count);
             }
 
@@ -284,15 +295,74 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
+        public void ACellWhosePoolHoldsNoPartReportsThePoolAsTheReason() {
+            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPartName) },
+                new[] { Stratum(new PoolEntry[0]) });
+
+            var result = ArrangementComposer.Compose(arrangement, 4UL);
+
+            Assert.AreEqual(8, result.Cells.Count(cell => cell.State == CompositionCellState.Empty));
+            Assert.AreEqual(8, result.OrdinaryCellsEmpty);
+            Assert.AreEqual(8, result.Contradictions.Count);
+
+            foreach (var contradiction in result.Contradictions) {
+                Assert.AreEqual(EmptyPoolReason, contradiction.Reason, contradiction.Cell.ToString());
+                Assert.AreNotEqual(EmptiedDomainReason, contradiction.Reason, contradiction.Cell.ToString());
+            }
+        }
+
+        [Test]
+        public void OpenFacesOffTheTopAndBottomAreUnconstrained() {
+            var arrangement = Describe(3, new[] { ShaftUpPart(), ShaftDownPart() },
+                new[] { Stratum(new[] { Entry(ShaftUpPartName) }), Stratum(new[] { Entry(ShaftDownPartName) }) });
+
+            var result = ArrangementComposer.Compose(arrangement, 6UL);
+
+            Assert.AreEqual(8, CountPlaced(result, ShaftUpPartName, 0));
+            Assert.AreEqual(8, CountPlaced(result, ShaftDownPartName, 1));
+            Assert.AreEqual(0, result.OrdinaryCellsEmpty);
+            Assert.AreEqual(0, result.Contradictions.Count);
+        }
+
+        [Test]
+        public void TheCentrePartIsClosedToTheCellBelow() {
+            var arrangement = Describe(3, new[] { ShaftDownPart(), ShaftUpPart() },
+                new[] { Stratum(new[] { Entry(ShaftDownPartName) }), Stratum(new[] { Entry(ShaftUpPartName) }) },
+                new[] { Entry(ShaftDownPartName) });
+            var lowerCentre = new CellAddress(1, 1, 1);
+
+            var result = ArrangementComposer.Compose(arrangement, 8UL);
+
+            Assert.AreEqual(ShaftDownPartName, result.Cell(new CellAddress(1, 1, 0)).PartName);
+            Assert.AreEqual(8, CountPlaced(result, ShaftUpPartName, 1));
+            Assert.AreEqual(CompositionCellState.Empty, result.Cell(lowerCentre).State);
+            Assert.AreEqual(1, result.Contradictions.Count);
+            Assert.AreEqual(lowerCentre, result.Contradictions[0].Cell);
+            Assert.AreEqual(EmptiedDomainReason, result.Contradictions[0].Reason);
+        }
+
+        [Test]
+        public void TiesAtTheLowestEntropyDrawFromTheRootStream() {
+            var arrangement = TwoPartPool(5);
+
+            var first = ArrangementComposer.Compose(arrangement, 1UL).ToText();
+            var again = ArrangementComposer.Compose(arrangement, 1UL).ToText();
+            var second = ArrangementComposer.Compose(arrangement, 2UL).ToText();
+
+            Assert.AreEqual(first, again);
+            Assert.AreNotEqual(first, second);
+        }
+
+        [Test]
         public void EveryOneOfPartIsPlacedOnce() {
             var arrangement = Describe(5,
                 new[] {
-                    ClosedPart(FirstClosedPart), ClosedPart("one-of-first"), ClosedPart("one-of-second"),
+                    ClosedPart(FirstClosedPartName), ClosedPart("one-of-first"), ClosedPart("one-of-second"),
                     ClosedPart("one-of-third")
                 },
                 new[] {
-                    Stratum(new[] { Entry(FirstClosedPart) }, "one-of-first", "one-of-second"),
-                    Stratum(new[] { Entry(FirstClosedPart) }, "one-of-third")
+                    Stratum(new[] { Entry(FirstClosedPartName) }, "one-of-first", "one-of-second"),
+                    Stratum(new[] { Entry(FirstClosedPartName) }, "one-of-third")
                 });
 
             for (var seed = 0UL; seed < 20UL; seed++) {
@@ -315,8 +385,8 @@ namespace Spellbound.Places.Editor.Tests {
             var rules = new CellRule[] {
                 new FixedCellRule { cell = new CellAddress(0, 0, 0), partName = "missing-part", rotationSteps = 0 }
             };
-            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPart) },
-                new[] { Stratum(new[] { Entry(FirstClosedPart), Entry("missing-pool-part") }) }, null, rules);
+            var arrangement = Describe(3, new[] { ClosedPart(FirstClosedPartName) },
+                new[] { Stratum(new[] { Entry(FirstClosedPartName), Entry("missing-pool-part") }) }, null, rules);
 
             var result = ArrangementComposer.Compose(arrangement, 9UL);
 
@@ -324,8 +394,8 @@ namespace Spellbound.Places.Editor.Tests {
             Assert.IsTrue(result.Contradictions.Any(contradiction => contradiction.Reason.Contains("missing-part")));
             Assert.IsTrue(result.Contradictions.Any(contradiction =>
                 contradiction.Reason.Contains("missing-pool-part")));
-            Assert.AreEqual(FirstClosedPart, result.Cell(new CellAddress(0, 0, 0)).PartName);
-            Assert.AreEqual(8, CountPlaced(result, FirstClosedPart, 0));
+            Assert.AreEqual(FirstClosedPartName, result.Cell(new CellAddress(0, 0, 0)).PartName);
+            Assert.AreEqual(8, CountPlaced(result, FirstClosedPartName, 0));
         }
 
         [Test]

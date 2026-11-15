@@ -5,8 +5,8 @@ using Spellbound.Places.Arrangement;
 
 namespace Spellbound.Places.Editor.Tests {
     internal static class ArrangementFixtures {
-        public const string FirstClosedPart = "closed-first";
-        public const string SecondClosedPart = "closed-second";
+        public const string FirstClosedPartName = "closed-first";
+        public const string SecondClosedPartName = "closed-second";
         public const string CorridorPartName = "corridor";
         public const string DeadEndPartName = "dead-end";
         public const string OpenAbovePartName = "open-above";
@@ -77,8 +77,8 @@ namespace Spellbound.Places.Editor.Tests {
 
         public static ArrangementDescription TwoPartPool(int gridSize, CellRule[] rules = null) {
             return Describe(gridSize,
-                new[] { ClosedPart(FirstClosedPart), ClosedPart(SecondClosedPart) },
-                new[] { Stratum(new[] { Entry(FirstClosedPart), Entry(SecondClosedPart) }) },
+                new[] { ClosedPart(FirstClosedPartName), ClosedPart(SecondClosedPartName) },
+                new[] { Stratum(new[] { Entry(FirstClosedPartName), Entry(SecondClosedPartName) }) },
                 null, rules);
         }
 

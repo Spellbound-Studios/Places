@@ -7,10 +7,11 @@ using Spellbound.Core.Simulation;
 namespace Spellbound.Places.Arrangement {
     internal sealed class ArrangementComposition {
         public const string EmptiedDomainReason = "no part fits the faces required by its neighbours";
+        public const string EmptyPoolReason = "the cell's pool has no part it may hold";
 
         private readonly ArrangementDescription _arrangement;
         private readonly CompositionGrid _grid;
-        private readonly SeededStream _collapseOrder;
+        private readonly SeededStream _rootStream;
         private readonly SeededStream _guaranteedPlacements;
         private readonly SeededStream[] _strataStreams;
         private readonly string[] _partNames;
@@ -41,19 +42,19 @@ namespace Spellbound.Places.Arrangement {
             _partNames = names.ToArray();
             _grid = new CompositionGrid(arrangement.GridSize, arrangement.Strata.Count, faces.ToArray());
 
-            _collapseOrder = new SeededStream(seed);
-            _guaranteedPlacements = _collapseOrder.Fork(ulong.MaxValue);
+            _rootStream = new SeededStream(seed);
+            _guaranteedPlacements = _rootStream.Fork(ulong.MaxValue);
             _strataStreams = new SeededStream[_grid.StratumCount];
             _strataPools = new ResolvedPool[_grid.StratumCount];
 
             for (var stratum = 0; stratum < _grid.StratumCount; stratum++) {
-                _strataStreams[stratum] = _collapseOrder.Fork((ulong)stratum);
+                _strataStreams[stratum] = _rootStream.Fork((ulong)stratum);
                 _strataPools[stratum] = ResolvePool(arrangement.Strata[stratum]?.pool, new CellAddress(0, 0, stratum));
             }
         }
 
         public CompositionResult Compose() {
-            ReadAreaRules();
+            ReadPoolAndRegionRules();
             PlaceCentre();
             PlaceFixedCells();
 
@@ -73,7 +74,7 @@ namespace Spellbound.Places.Arrangement {
                 _ordinaryCellsAttempted, _ordinaryCellsEmpty);
         }
 
-        private void ReadAreaRules() {
+        private void ReadPoolAndRegionRules() {
             foreach (var rule in _arrangement.Rules) {
                 switch (rule) {
                     case WeightedPoolRule poolRule:
@@ -264,7 +265,7 @@ namespace Spellbound.Places.Arrangement {
                 if (domain.Entropy <= 0) {
                     _grid.SetDomain(chosen, null);
                     _ordinaryCellsEmpty++;
-                    Report(_grid.AddressOf(chosen), EmptiedDomainReason);
+                    Report(_grid.AddressOf(chosen), domain.Count == 0 ? EmptyPoolReason : EmptiedDomainReason);
                     continue;
                 }
 
@@ -316,7 +317,7 @@ namespace Spellbound.Places.Arrangement {
                 } else if (domain.Entropy == lowest) {
                     ties++;
 
-                    if (_collapseOrder.NextInteger(0, ties) == 0) {
+                    if (_rootStream.NextInteger(0, ties) == 0) {
                         chosen = index;
                     }
                 }
