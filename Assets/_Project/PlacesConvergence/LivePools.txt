@@ -1,0 +1,98 @@
+centre main_shaft_bottom 1
+centre main_shaft_bottom_v2 1
+stratum 0
+pool big_cave 10
+pool path_bend_ne 1
+pool path_straight_ns 1
+pool path_they_are_coming 1
+pool path_fork_treasure 1
+pool crossroad_brazier 1
+pool dead_end_loop 1
+pool curved_detour 1
+pool curved_path 1
+pool straight_incomplete 1
+pool straight_path 1
+pool straight_path_timbers 1
+pool no_feature_fallback 1
+oneof Cage
+oneof brazier_vault
+oneof signal_lock
+oneof Ratchet
+oneof Scales
+oneof toll_bridge
+oneof toll_gate
+oneof chokedamp_vault
+oneof swing_chasm
+oneof rotten_gallery
+oneof warden_hall
+oneof crumbling_seam
+stratum 1
+pool spiral_ramp 10
+pool arch_treasure_shaft 3
+pool hook_shaft_cave 3
+pool stairway 1
+pool filled_in_staircase 1
+pool stairs_ramp 1
+pool crossroad_brazier 1
+pool path_they_are_coming 1
+pool path_straight_ns 1
+pool path_bend_ne 1
+pool path_fork_treasure 1
+pool curved_detour 1
+pool curved_path 1
+pool straight_incomplete 1
+pool straight_path 1
+pool straight_path_timbers 1
+pool no_feature_fallback 1
+oneof merchant
+oneof Cage
+oneof brazier_vault
+oneof signal_lock
+oneof stair_head
+oneof Ratchet
+oneof Well
+oneof Scales
+oneof toll_bridge
+oneof toll_gate
+oneof chokedamp_vault
+oneof swing_chasm
+oneof vent_forge
+oneof rotten_gallery
+oneof warden_hall
+oneof crumbling_seam
+oneof misty_maze
+oneof Landing
+oneof stairs_ramp
+oneof Tightrope
+oneof filled_in_staircase
+stratum 2
+pool stair_descent 1
+pool ratchet_descent 1
+pool ramp_gallery 4
+pool curved_detour 1
+pool curved_path 1
+pool straight_incomplete 1
+pool straight_path 1
+pool straight_path_timbers 1
+pool no_feature_fallback 1
+oneof merchant
+oneof Cage
+oneof brazier_vault
+oneof signal_lock
+oneof stair_head
+oneof Ratchet
+oneof Well
+oneof Scales
+oneof toll_bridge
+oneof toll_gate
+oneof chokedamp_vault
+oneof swing_chasm
+oneof vent_forge
+oneof rotten_gallery
+oneof warden_hall
+oneof crumbling_seam
+oneof misty_maze
+oneof Landing
+oneof stairs_ramp
+oneof Tightrope
+oneof filled_in_staircase
