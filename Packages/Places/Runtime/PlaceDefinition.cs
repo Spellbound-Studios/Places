@@ -25,6 +25,27 @@ namespace Spellbound.Places {
             if (report == null) {
                 throw new ArgumentNullException(nameof(report));
             }
+
+            var layerNames = new HashSet<string>(StringComparer.Ordinal);
+
+            for (var index = 0; index < layers.Count; index++) {
+                var layer = layers[index];
+
+                if (layer == null) {
+                    continue;
+                }
+
+                var location = "layers[" + index + "]";
+
+                if (string.IsNullOrWhiteSpace(layer.LayerName)) {
+                    report.Error(PlaceFindingCodes.LayerNameEmpty, location + " has no layer name", location);
+                } else if (!layerNames.Add(layer.LayerName)) {
+                    report.Error(PlaceFindingCodes.LayerNameDuplicate,
+                        location + " repeats the layer name '" + layer.LayerName + "'", location);
+                }
+
+                layer.Validate(report, location);
+            }
         }
     }
 }
