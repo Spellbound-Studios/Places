@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 using Spellbound.Core.Authoring;
+using Spellbound.Core.Tooling;
 using Spellbound.Places.Arrangement;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -69,8 +70,7 @@ namespace Spellbound.Places.Editor.Tests {
 
             Assert.IsNotNull(field);
             Assert.IsNotNull(field.GetCustomAttribute<SerializeReference>());
-            Assert.IsFalse(field.GetCustomAttributes().Any(attribute =>
-                attribute.GetType().Name == "SerializeReferenceDropdownAttribute"));
+            Assert.IsNull(field.GetCustomAttribute<SerializeReferenceDropdownAttribute>());
         }
     }
 }

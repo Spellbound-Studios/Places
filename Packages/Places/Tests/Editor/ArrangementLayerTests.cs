@@ -1,9 +1,9 @@
 // Copyright (c) Spellbound Studios. All rights reserved.
 
 using System;
-using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
+using Spellbound.Core.Tooling;
 using Spellbound.Places.Arrangement;
 using UnityEngine;
 
@@ -54,8 +54,7 @@ namespace Spellbound.Places.Editor.Tests {
 
             Assert.IsNotNull(field);
             Assert.IsNotNull(field.GetCustomAttribute<SerializeReference>());
-            Assert.IsFalse(field.GetCustomAttributes().Any(attribute =>
-                attribute.GetType().Name == "SerializeReferenceDropdownAttribute"));
+            Assert.IsNull(field.GetCustomAttribute<SerializeReferenceDropdownAttribute>());
         }
     }
 }

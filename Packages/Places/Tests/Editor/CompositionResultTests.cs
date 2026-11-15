@@ -67,6 +67,28 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
+        public void ANonPositiveGridSizeIsKeptAsGiven() {
+            var result = new CompositionResult(-3, 0, Array.Empty<CompositionCell>(),
+                new[] { new CellContradiction(new CellAddress(0, 0, 0), "too small") }, 0, 0);
+
+            Assert.AreEqual(-3, result.GridSize);
+            Assert.AreEqual(0, result.StratumCount);
+            Assert.AreEqual(0, result.Cells.Count);
+            Assert.AreEqual(1, result.Contradictions.Count);
+            Assert.Throws<ArgumentOutOfRangeException>(() => result.Cell(new CellAddress(0, 0, 0)));
+        }
+
+        [Test]
+        public void ACellOutsideTheGridIsRefusedByTheConstructor() {
+            var cells = new[] {
+                new CompositionCell(new CellAddress(0, 0, 0), CompositionCellState.Placed, "alpha", 0),
+                new CompositionCell(new CellAddress(2, 0, 0), CompositionCellState.Placed, "beta", 0),
+            };
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CompositionResult(2, 1, cells, null, 0, 0));
+        }
+
+        [Test]
         public void AContradictionKeepsItsCellAndReason() {
             var contradiction = TwoByTwoResult().Contradictions[0];
 

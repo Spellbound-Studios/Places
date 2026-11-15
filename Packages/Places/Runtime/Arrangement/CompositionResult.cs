@@ -17,17 +17,20 @@ namespace Spellbound.Places.Arrangement {
 
         public CompositionResult(int gridSize, int stratumCount, IReadOnlyList<CompositionCell> cells,
             IReadOnlyList<CellContradiction> contradictions, int ordinaryCellsAttempted, int ordinaryCellsEmpty) {
-            GridSize = Math.Max(0, gridSize);
-            StratumCount = Math.Max(0, stratumCount);
+            GridSize = gridSize;
+            StratumCount = stratumCount;
             Cells = cells ?? Array.Empty<CompositionCell>();
             Contradictions = contradictions ?? Array.Empty<CellContradiction>();
             OrdinaryCellsAttempted = ordinaryCellsAttempted;
             OrdinaryCellsEmpty = ordinaryCellsEmpty;
 
-            _grid = new CompositionCell[GridSize * GridSize * StratumCount];
-            for (var stratum = 0; stratum < StratumCount; stratum++) {
-                for (var row = 0; row < GridSize; row++) {
-                    for (var column = 0; column < GridSize; column++) {
+            var allocatedGridSize = Math.Max(0, gridSize);
+            var allocatedStratumCount = Math.Max(0, stratumCount);
+
+            _grid = new CompositionCell[allocatedGridSize * allocatedGridSize * allocatedStratumCount];
+            for (var stratum = 0; stratum < allocatedStratumCount; stratum++) {
+                for (var row = 0; row < allocatedGridSize; row++) {
+                    for (var column = 0; column < allocatedGridSize; column++) {
                         var address = new CellAddress(column, row, stratum);
                         _grid[IndexOf(address)] = new CompositionCell(address, CompositionCellState.Empty, null, 0);
                     }
@@ -35,9 +38,11 @@ namespace Spellbound.Places.Arrangement {
             }
 
             foreach (var cell in Cells) {
-                if (IsInside(cell.Address)) {
-                    _grid[IndexOf(cell.Address)] = cell;
+                if (!IsInside(cell.Address)) {
+                    throw new ArgumentOutOfRangeException(nameof(cells), cell.Address, null);
                 }
+
+                _grid[IndexOf(cell.Address)] = cell;
             }
         }
 
