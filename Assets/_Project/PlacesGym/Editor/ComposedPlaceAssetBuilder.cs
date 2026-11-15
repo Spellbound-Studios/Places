@@ -60,7 +60,21 @@ namespace PlacesGym.Editor {
                 throw new InvalidOperationException(AssetPath + " does not exist; build the place first");
             }
 
+            var hasArrangementLayer = false;
+
+            foreach (var layer in place.Layers) {
+                if (layer is ArrangementLayer) {
+                    hasArrangementLayer = true;
+                    break;
+                }
+            }
+
+            if (!hasArrangementLayer) {
+                throw new InvalidOperationException(AssetPath + " has no arrangement layer; build the place first");
+            }
+
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            place = AssetDatabase.LoadAssetAtPath<PlaceDefinition>(AssetPath);
             RenderSettings.ambientMode = AmbientMode.Flat;
             RenderSettings.ambientLight = new Color(0.45f, 0.45f, 0.5f);
 
