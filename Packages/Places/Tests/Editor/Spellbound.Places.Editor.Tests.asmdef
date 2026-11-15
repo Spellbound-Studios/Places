@@ -1,0 +1,20 @@
+{
+  "name": "Spellbound.Places.Editor.Tests",
+  "rootNamespace": "Spellbound.Places.Editor.Tests",
+  "references": ["Spellbound.Places", "Spellbound.Places.Editor", "Spellbound.Core", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS", "SPELLBOUND_CORE"],
+  "versionDefines": [
+    {
+      "name": "com.spellboundstudios.core",
+      "expression": "[1.1.9,3.0.0)",
+      "define": "SPELLBOUND_CORE"
+    }
+  ],
+  "noEngineReferences": false
+}
