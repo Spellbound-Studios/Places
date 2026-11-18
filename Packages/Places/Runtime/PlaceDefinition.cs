@@ -119,22 +119,88 @@ namespace Spellbound.Places {
                 layer.Validate(report, location);
             }
 
-            if (!entrance.IsSet) {
+            if (entrance.IsSet) {
+                const string entranceLocation = "entrance";
+
+                if (FindLayer(entrance.LayerName) is not ArrangementLayer arrangement) {
+                    report.Error(PlaceFindingCodes.EntranceLayerUnknown,
+                        entranceLocation + " names the layer '" + entrance.LayerName
+                        + "', which is not an arrangement layer of this place", entranceLocation);
+                } else if (!arrangement.ContainsCell(entrance.Cell)) {
+                    report.Error(PlaceFindingCodes.EntranceCellOutsideGrid,
+                        entranceLocation + ".cell is " + entrance.Cell + ", outside the " + arrangement.GridSize
+                        + " by " + arrangement.GridSize + " grid of " + arrangement.Strata.Count
+                        + " strata of the layer '" + entrance.LayerName + "'", entranceLocation);
+                }
+            }
+
+            for (var index = 0; index < layers.Count; index++) {
+                if (layers[index] is not NestedPlaceLayer nested) {
+                    continue;
+                }
+
+                var location = "layers[" + index + "]";
+
+                if (!string.IsNullOrEmpty(nested.ArrangementLayerName)) {
+                    var arrangementLocation = location + ".arrangementLayerName";
+                    var cellLocation = location + ".cell";
+
+                    if (FindLayer(nested.ArrangementLayerName) is not ArrangementLayer arrangement) {
+                        report.Error(PlaceFindingCodes.NestingLayerUnknown,
+                            arrangementLocation + " names the layer '" + nested.ArrangementLayerName
+                            + "', which is not an arrangement layer of this place", arrangementLocation);
+                    } else if (!arrangement.ContainsCell(nested.Cell)) {
+                        report.Error(PlaceFindingCodes.NestingCellOutsideGrid,
+                            cellLocation + " is " + nested.Cell + ", outside the " + arrangement.GridSize + " by "
+                            + arrangement.GridSize + " grid of " + arrangement.Strata.Count + " strata of the layer '"
+                            + nested.ArrangementLayerName + "'", cellLocation);
+                    }
+                }
+
+                var depthReported = false;
+                WalkNesting(report, location, nested.Place, new List<PlaceDefinition> { this }, ref depthReported);
+            }
+        }
+
+        private void WalkNesting(ValidationReport report, string rootLocation, PlaceDefinition place,
+            List<PlaceDefinition> path, ref bool depthReported) {
+            if (place == null) {
                 return;
             }
 
-            const string entranceLocation = "entrance";
+            if (path.Contains(place)) {
+                var names = new List<string>();
 
-            if (FindLayer(entrance.LayerName) is not ArrangementLayer arrangement) {
-                report.Error(PlaceFindingCodes.EntranceLayerUnknown,
-                    entranceLocation + " names the layer '" + entrance.LayerName
-                    + "', which is not an arrangement layer of this place", entranceLocation);
-            } else if (!arrangement.ContainsCell(entrance.Cell)) {
-                report.Error(PlaceFindingCodes.EntranceCellOutsideGrid,
-                    entranceLocation + ".cell is " + entrance.Cell + ", outside the " + arrangement.GridSize
-                    + " by " + arrangement.GridSize + " grid of " + arrangement.Strata.Count
-                    + " strata of the layer '" + entrance.LayerName + "'", entranceLocation);
+                foreach (var visited in path) {
+                    names.Add(visited.name);
+                }
+
+                names.Add(place.name);
+                report.Error(PlaceFindingCodes.NestingCycle,
+                    rootLocation + " nests a cycle of places: " + string.Join(" > ", names), rootLocation);
+                return;
             }
+
+            if (path.Count > nestingDepthLimit) {
+                if (!depthReported) {
+                    depthReported = true;
+                    report.Error(PlaceFindingCodes.NestingDepth,
+                        rootLocation + " nests places " + path.Count
+                        + " deep below this place, over the nesting depth limit of " + nestingDepthLimit, rootLocation);
+                }
+
+                return;
+            }
+
+            path.Add(place);
+
+            foreach (var layer in place.Layers) {
+                if (layer is NestedPlaceLayer nested) {
+                    WalkNesting(report, rootLocation, nested.Place, path, ref depthReported);
+                }
+            }
+
+            path.RemoveAt(path.Count - 1);
         }
     }
 }

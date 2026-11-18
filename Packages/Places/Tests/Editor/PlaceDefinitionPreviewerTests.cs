@@ -61,6 +61,61 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
+        public void TheNestedPlacesLayersAreListedUnderTheirParent() {
+            var cellar = ScriptableObject.CreateInstance<PlaceDefinition>();
+            var vault = ScriptableObject.CreateInstance<PlaceDefinition>();
+
+            try {
+                cellar.name = "Cellar";
+                vault.name = "Vault";
+                cellar.AddLayer(ArrangementLayerValidationTests.CleanLayer());
+                ((List<PlaceLayer>)cellar.Layers).Add(null);
+                cellar.AddLayer(new NestedPlaceLayer { LayerName = "vault", Place = vault });
+                vault.AddLayer(new HarvestableTestLayer { LayerName = "deposits" });
+                vault.AddLayer(new NestedPlaceLayer { LayerName = "empty" });
+                _place.AddLayer(new NestedPlaceLayer { LayerName = "cellar", Place = cellar });
+                _place.AddLayer(new HarvestableTestLayer { LayerName = "ore" });
+
+                var preview = new PlaceDefinitionPreviewer().Preview(_place);
+
+                Assert.AreEqual("Clean: 2 layers", preview.Summary);
+                CollectionAssert.AreEqual(new[] {
+                    "layers[0] NestedPlaceLayer 'cellar' nests Cellar",
+                    "  layers[0] ArrangementLayer 'arrangement'",
+                    "  layers[1] (carried or empty)",
+                    "  layers[2] NestedPlaceLayer 'vault' nests Vault",
+                    "    layers[0] HarvestableTestLayer 'deposits'",
+                    "    layers[1] NestedPlaceLayer 'empty' nests nothing",
+                    "layers[1] HarvestableTestLayer 'ore'"
+                }, preview.Lines, string.Join("\n", preview.Lines));
+            } finally {
+                Object.DestroyImmediate(cellar);
+                Object.DestroyImmediate(vault);
+            }
+        }
+
+        [Test]
+        public void ACycleIsListedOnceAndStops() {
+            var cellar = ScriptableObject.CreateInstance<PlaceDefinition>();
+
+            try {
+                cellar.name = "Cellar";
+                cellar.AddLayer(new NestedPlaceLayer { LayerName = "hall", Place = _place });
+                _place.AddLayer(new NestedPlaceLayer { LayerName = "cellar", Place = cellar });
+
+                var preview = new PlaceDefinitionPreviewer().Preview(_place);
+
+                CollectionAssert.AreEqual(new[] {
+                    "layers[0] NestedPlaceLayer 'cellar' nests Cellar",
+                    "  layers[0] NestedPlaceLayer 'hall' nests Clean",
+                    "    (cycle: Clean)"
+                }, preview.Lines, string.Join("\n", preview.Lines));
+            } finally {
+                Object.DestroyImmediate(cellar);
+            }
+        }
+
+        [Test]
         public void TheRegistryFindsThePreviewerForAPlace() {
             Assert.IsInstanceOf<PlaceDefinitionPreviewer>(
                 DefinitionPreviewerRegistry.Default.For(typeof(PlaceDefinition)));

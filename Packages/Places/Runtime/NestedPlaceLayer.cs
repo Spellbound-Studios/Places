@@ -28,6 +28,15 @@ namespace Spellbound.Places {
         }
 
         public override void Validate(ValidationReport report, string location) {
+            if (report == null) {
+                throw new ArgumentNullException(nameof(report));
+            }
+
+            if (place == null) {
+                var placeLocation = location + ".place";
+                report.Error(PlaceFindingCodes.NestingPlaceEmpty, placeLocation + " names no place to nest",
+                    placeLocation);
+            }
         }
     }
 }
