@@ -35,8 +35,16 @@ namespace Spellbound.Places.Editor {
             "Lists the parts of every arrangement layer of a place with their six faces: east, west, up, down,"
             + " north and south.", OperationEffect.Reads)]
         public static OperationResult Parts(OperationContext context,
-            [Argument("The place, as asset:<path> or asset:<name>.")] PlaceDefinition target) {
+            [Argument("The place, as asset:<path> or asset:<name>.")] PlaceDefinition target,
+            [Argument("How many parts to skip from the start of the list.")] int offset = 0,
+            [Argument("How many parts to list at most; zero lists every one.")] int limit = 0) {
+            if (offset < 0 || limit < 0) {
+                return OperationResult.Invalid("--offset and --limit are zero or more");
+            }
+
             var lines = new List<string>();
+            var partIndex = 0;
+            var listed = 0;
 
             for (var index = 0; index < target.Layers.Count; index++) {
                 if (!(target.Layers[index] is ArrangementLayer layer)) {
@@ -47,7 +55,12 @@ namespace Spellbound.Places.Editor {
                     + " parts");
 
                 foreach (var part in layer.Parts) {
+                    if (partIndex++ < offset || (limit > 0 && listed >= limit)) {
+                        continue;
+                    }
+
                     lines.Add(PartLine(part));
+                    listed++;
                 }
             }
 

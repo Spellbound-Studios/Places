@@ -137,6 +137,32 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
+        public void PartsListsAPageOfTwoFromAnOffset() {
+            var layer = ArrangementLayerValidationTests.CleanLayer();
+            layer.AddPart(new PartDescription {
+                partName = "open-above",
+                faces = new PartFaces(SocketKind.NoConnection, SocketKind.Connection, SocketKind.Connection,
+                    SocketKind.NoConnection, SocketKind.NoConnection, SocketKind.NoConnection)
+            });
+            layer.AddPart(new PartDescription {
+                partName = "open-below",
+                faces = new PartFaces(SocketKind.NoConnection, SocketKind.Connection, SocketKind.NoConnection,
+                    SocketKind.Connection, SocketKind.NoConnection, SocketKind.NoConnection)
+            });
+            var place = CreatePlace("Paged", layer);
+
+            var lines = SucceededLines("places parts --target asset:" + PathOf(place) + " --offset 1 --limit 2");
+
+            CollectionAssert.AreEqual(new[] {
+                "layers[0] ArrangementLayer 'arrangement': 4 parts",
+                "end east NoConnection west NoConnection up NoConnection down NoConnection north NoConnection"
+                + " south NoConnection",
+                "open-above east NoConnection west Connection up Connection down NoConnection north NoConnection"
+                + " south NoConnection"
+            }, lines, string.Join("\n", lines));
+        }
+
+        [Test]
         public void PartsWithoutAnArrangementLayerIsInvalid() {
             var place = CreatePlace("Partless", new HarvestableTestLayer { LayerName = "ore" });
 

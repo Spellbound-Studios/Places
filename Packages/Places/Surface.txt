@@ -1,0 +1,291 @@
+surface 1
+member Spellbound.Places.Arrangement.AllowedRegionRule.new()
+member Spellbound.Places.Arrangement.AllowedRegionRule.partName : System.String
+member Spellbound.Places.Arrangement.AllowedRegionRule.region : Spellbound.Places.Arrangement.CellRegion
+member Spellbound.Places.Arrangement.ArrangementComposer.Compose(Spellbound.Places.Arrangement.ArrangementDescription, System.UInt64) : static Spellbound.Places.Arrangement.CompositionResult
+member Spellbound.Places.Arrangement.ArrangementDescription.CentrePool : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.PoolEntry> { get; }
+member Spellbound.Places.Arrangement.ArrangementDescription.GridSize : System.Int32 { get; }
+member Spellbound.Places.Arrangement.ArrangementDescription.Parts : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.PartDescription> { get; }
+member Spellbound.Places.Arrangement.ArrangementDescription.Rules : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CellRule> { get; }
+member Spellbound.Places.Arrangement.ArrangementDescription.Strata : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.StratumDescription> { get; }
+member Spellbound.Places.Arrangement.ArrangementDescription.TryFindPart(System.String, out Spellbound.Places.Arrangement.PartDescription) : System.Boolean
+member Spellbound.Places.Arrangement.ArrangementDescription.new(System.Int32, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.PartDescription>, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.StratumDescription>, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.PoolEntry>, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CellRule>)
+member Spellbound.Places.Arrangement.ArrangementLayer.AddCentrePoolEntry(Spellbound.Places.Arrangement.PoolEntry) : Spellbound.Places.Arrangement.PoolEntry
+member Spellbound.Places.Arrangement.ArrangementLayer.AddPart(Spellbound.Places.Arrangement.PartDescription) : Spellbound.Places.Arrangement.PartDescription
+member Spellbound.Places.Arrangement.ArrangementLayer.AddRule(Spellbound.Places.Arrangement.CellRule) : Spellbound.Places.Arrangement.CellRule
+member Spellbound.Places.Arrangement.ArrangementLayer.AddStratum(Spellbound.Places.Arrangement.StratumDescription) : Spellbound.Places.Arrangement.StratumDescription
+member Spellbound.Places.Arrangement.ArrangementLayer.CentrePool : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.PoolEntry> { get; }
+member Spellbound.Places.Arrangement.ArrangementLayer.ContainsCell(Spellbound.Places.Arrangement.CellAddress) : System.Boolean
+member Spellbound.Places.Arrangement.ArrangementLayer.GridSize : System.Int32 { get; }
+member Spellbound.Places.Arrangement.ArrangementLayer.Parts : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.PartDescription> { get; }
+member Spellbound.Places.Arrangement.ArrangementLayer.Rules : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CellRule> { get; }
+member Spellbound.Places.Arrangement.ArrangementLayer.Seed : System.UInt64 { get; set; }
+member Spellbound.Places.Arrangement.ArrangementLayer.Strata : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.StratumDescription> { get; }
+member Spellbound.Places.Arrangement.ArrangementLayer.ToDescription() : Spellbound.Places.Arrangement.ArrangementDescription
+member Spellbound.Places.Arrangement.ArrangementLayer.Validate(Spellbound.Core.Authoring.ValidationReport, System.String) : override System.Void
+member Spellbound.Places.Arrangement.ArrangementLayer.new()
+member Spellbound.Places.Arrangement.CellAddress.Equals(Spellbound.Places.Arrangement.CellAddress) : System.Boolean
+member Spellbound.Places.Arrangement.CellAddress.Equals(System.Object) : override System.Boolean
+member Spellbound.Places.Arrangement.CellAddress.GetHashCode() : override System.Int32
+member Spellbound.Places.Arrangement.CellAddress.ToString() : override System.String
+member Spellbound.Places.Arrangement.CellAddress.column : System.Int32
+member Spellbound.Places.Arrangement.CellAddress.new(System.Int32, System.Int32, System.Int32)
+member Spellbound.Places.Arrangement.CellAddress.op_Equality(Spellbound.Places.Arrangement.CellAddress, Spellbound.Places.Arrangement.CellAddress) : static System.Boolean
+member Spellbound.Places.Arrangement.CellAddress.op_Inequality(Spellbound.Places.Arrangement.CellAddress, Spellbound.Places.Arrangement.CellAddress) : static System.Boolean
+member Spellbound.Places.Arrangement.CellAddress.row : System.Int32
+member Spellbound.Places.Arrangement.CellAddress.stratum : System.Int32
+member Spellbound.Places.Arrangement.CellContradiction.Cell : Spellbound.Places.Arrangement.CellAddress { get; }
+member Spellbound.Places.Arrangement.CellContradiction.Reason : System.String { get; }
+member Spellbound.Places.Arrangement.CellContradiction.new(Spellbound.Places.Arrangement.CellAddress, System.String)
+member Spellbound.Places.Arrangement.CellRegion.Contains(Spellbound.Places.Arrangement.CellAddress) : System.Boolean
+member Spellbound.Places.Arrangement.CellRegion.maximum : Spellbound.Places.Arrangement.CellAddress
+member Spellbound.Places.Arrangement.CellRegion.minimum : Spellbound.Places.Arrangement.CellAddress
+member Spellbound.Places.Arrangement.CellRule.new()
+member Spellbound.Places.Arrangement.CompositionCell.Address : Spellbound.Places.Arrangement.CellAddress { get; }
+member Spellbound.Places.Arrangement.CompositionCell.PartName : System.String { get; }
+member Spellbound.Places.Arrangement.CompositionCell.RotationSteps : System.Int32 { get; }
+member Spellbound.Places.Arrangement.CompositionCell.State : Spellbound.Places.Arrangement.CompositionCellState { get; }
+member Spellbound.Places.Arrangement.CompositionCell.new(Spellbound.Places.Arrangement.CellAddress, Spellbound.Places.Arrangement.CompositionCellState, System.String, System.Int32)
+member Spellbound.Places.Arrangement.CompositionCellState.Empty : Spellbound.Places.Arrangement.CompositionCellState = 0
+member Spellbound.Places.Arrangement.CompositionCellState.Placed : Spellbound.Places.Arrangement.CompositionCellState = 1
+member Spellbound.Places.Arrangement.CompositionCellState.VoidCentre : Spellbound.Places.Arrangement.CompositionCellState = 2
+member Spellbound.Places.Arrangement.CompositionResult.Cell(Spellbound.Places.Arrangement.CellAddress) : Spellbound.Places.Arrangement.CompositionCell
+member Spellbound.Places.Arrangement.CompositionResult.Cells : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CompositionCell> { get; }
+member Spellbound.Places.Arrangement.CompositionResult.Contradictions : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CellContradiction> { get; }
+member Spellbound.Places.Arrangement.CompositionResult.GridSize : System.Int32 { get; }
+member Spellbound.Places.Arrangement.CompositionResult.OrdinaryCellsAttempted : System.Int32 { get; }
+member Spellbound.Places.Arrangement.CompositionResult.OrdinaryCellsEmpty : System.Int32 { get; }
+member Spellbound.Places.Arrangement.CompositionResult.StratumCount : System.Int32 { get; }
+member Spellbound.Places.Arrangement.CompositionResult.ToText() : System.String
+member Spellbound.Places.Arrangement.CompositionResult.new(System.Int32, System.Int32, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CompositionCell>, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CellContradiction>, System.Int32, System.Int32)
+member Spellbound.Places.Arrangement.FixedCellRule.cell : Spellbound.Places.Arrangement.CellAddress
+member Spellbound.Places.Arrangement.FixedCellRule.new()
+member Spellbound.Places.Arrangement.FixedCellRule.partName : System.String
+member Spellbound.Places.Arrangement.FixedCellRule.rotationSteps : System.Int32
+member Spellbound.Places.Arrangement.HorizontalDirection.East : Spellbound.Places.Arrangement.HorizontalDirection = 1
+member Spellbound.Places.Arrangement.HorizontalDirection.North : Spellbound.Places.Arrangement.HorizontalDirection = 0
+member Spellbound.Places.Arrangement.HorizontalDirection.South : Spellbound.Places.Arrangement.HorizontalDirection = 2
+member Spellbound.Places.Arrangement.HorizontalDirection.West : Spellbound.Places.Arrangement.HorizontalDirection = 3
+member Spellbound.Places.Arrangement.PartDescription.faces : Spellbound.Places.Arrangement.PartFaces
+member Spellbound.Places.Arrangement.PartDescription.new()
+member Spellbound.Places.Arrangement.PartDescription.partName : System.String
+member Spellbound.Places.Arrangement.PartFaces.Horizontal(Spellbound.Places.Arrangement.HorizontalDirection) : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.Rotated(System.Int32, Spellbound.Places.Arrangement.HorizontalDirection) : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.down : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.east : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.new(Spellbound.Places.Arrangement.SocketKind, Spellbound.Places.Arrangement.SocketKind, Spellbound.Places.Arrangement.SocketKind, Spellbound.Places.Arrangement.SocketKind, Spellbound.Places.Arrangement.SocketKind, Spellbound.Places.Arrangement.SocketKind)
+member Spellbound.Places.Arrangement.PartFaces.north : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.south : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.up : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PartFaces.west : Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.PoolEntry.new()
+member Spellbound.Places.Arrangement.PoolEntry.partName : System.String
+member Spellbound.Places.Arrangement.PoolEntry.weight : System.Single
+member Spellbound.Places.Arrangement.SocketCompatibility.AreCompatible(Spellbound.Places.Arrangement.SocketKind, Spellbound.Places.Arrangement.SocketKind) : static System.Boolean
+member Spellbound.Places.Arrangement.SocketCompatibility.Normalise(Spellbound.Places.Arrangement.SocketKind) : static Spellbound.Places.Arrangement.SocketKind
+member Spellbound.Places.Arrangement.SocketKind.Connection : Spellbound.Places.Arrangement.SocketKind = 2
+member Spellbound.Places.Arrangement.SocketKind.NoConnection : Spellbound.Places.Arrangement.SocketKind = 1
+member Spellbound.Places.Arrangement.SocketKind.SealedConnection : Spellbound.Places.Arrangement.SocketKind = 4
+member Spellbound.Places.Arrangement.SocketKindText.Of(Spellbound.Places.Arrangement.SocketKind) : static System.String
+member Spellbound.Places.Arrangement.StratumDescription.new()
+member Spellbound.Places.Arrangement.StratumDescription.oneOfParts : System.Collections.Generic.List<System.String>
+member Spellbound.Places.Arrangement.StratumDescription.pool : System.Collections.Generic.List<Spellbound.Places.Arrangement.PoolEntry>
+member Spellbound.Places.Arrangement.WeightedPoolRule.cell : Spellbound.Places.Arrangement.CellAddress
+member Spellbound.Places.Arrangement.WeightedPoolRule.new()
+member Spellbound.Places.Arrangement.WeightedPoolRule.pool : System.Collections.Generic.List<Spellbound.Places.Arrangement.PoolEntry>
+member Spellbound.Places.Editor.IPlaceLayerInspectorActions.Actions(Spellbound.Places.PlaceDefinition, System.Int32) : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Editor.PlaceLayerInspectorAction>
+member Spellbound.Places.Editor.IPlaceLayerInspectorActions.LayerType : System.Type { get; }
+member Spellbound.Places.Editor.LayerOwnerInstalledCheck.Check(Spellbound.Places.PlaceDefinition, Spellbound.Core.Authoring.ValidationReport) : System.Void
+member Spellbound.Places.Editor.LayerOwnerInstalledCheck.PreviewLines(Spellbound.Places.PlaceDefinition) : System.Collections.Generic.IReadOnlyList<System.String>
+member Spellbound.Places.Editor.LayerOwnerInstalledCheck.new()
+member Spellbound.Places.Editor.LayerRename.NewName : System.String { get; }
+member Spellbound.Places.Editor.LayerRename.PreviousName : System.String { get; }
+member Spellbound.Places.Editor.LayerRename.new(System.String, System.String)
+member Spellbound.Places.Editor.PlaceDefinitionEditor.CreateInspectorGUI() : override UnityEngine.UIElements.VisualElement
+member Spellbound.Places.Editor.PlaceDefinitionEditor.LayerActionsName : const System.String = "places-layer-actions"
+member Spellbound.Places.Editor.PlaceDefinitionEditor.LayerListName : const System.String = "places-layer-list"
+member Spellbound.Places.Editor.PlaceDefinitionEditor.ReadOnlySentence : const System.String = "the type of a stored layer or rule is not installed, so the list is read-only until it is"
+member Spellbound.Places.Editor.PlaceDefinitionEditor.ReadOnlyState : const System.String = "read-only"
+member Spellbound.Places.Editor.PlaceDefinitionEditor.RootName : const System.String = "places-inspector"
+member Spellbound.Places.Editor.PlaceDefinitionEditor.new()
+member Spellbound.Places.Editor.PlaceDefinitionPreviewer.Preview(Spellbound.Places.PlaceDefinition) : override Spellbound.Core.Authoring.Editor.DefinitionPreview
+member Spellbound.Places.Editor.PlaceDefinitionPreviewer.new()
+member Spellbound.Places.Editor.PlaceDuplicateReport.CarriedLayers : System.Collections.Generic.IReadOnlyList<System.String> { get; }
+member Spellbound.Places.Editor.PlaceDuplicateReport.CopyPath : System.String { get; }
+member Spellbound.Places.Editor.PlaceDuplicateReport.Renames : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Editor.LayerRename> { get; }
+member Spellbound.Places.Editor.PlaceDuplicateReport.new(System.String, System.Collections.Generic.IReadOnlyList<Spellbound.Places.Editor.LayerRename>, System.Collections.Generic.IReadOnlyList<System.String>)
+member Spellbound.Places.Editor.PlaceDuplicator.Duplicate(Spellbound.Places.PlaceDefinition, System.String) : static Spellbound.Places.Editor.PlaceDuplicateReport
+member Spellbound.Places.Editor.PlaceLayerInspectorAction.Invoke(Spellbound.Places.PlaceDefinition, System.Int32) : System.Void
+member Spellbound.Places.Editor.PlaceLayerInspectorAction.Label : System.String { get; }
+member Spellbound.Places.Editor.PlaceLayerInspectorAction.new(System.String, System.Action<Spellbound.Places.PlaceDefinition, System.Int32>)
+member Spellbound.Places.Editor.PlaceLayerInspectorActionAttribute.new()
+member Spellbound.Places.Editor.PlaceLayerInspectorActionRegistry.ActionsFor(Spellbound.Places.PlaceDefinition, System.Int32) : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Editor.PlaceLayerInspectorAction>
+member Spellbound.Places.Editor.PlaceLayerInspectorActionRegistry.Default : static Spellbound.Places.Editor.PlaceLayerInspectorActionRegistry { get; }
+member Spellbound.Places.Editor.PlaceLayerInspectorActionRegistry.Reset() : static System.Void
+member Spellbound.Places.Editor.PlaceLayerInspectorActionRegistry.new(System.Collections.Generic.IEnumerable<Spellbound.Places.Editor.IPlaceLayerInspectorActions>)
+member Spellbound.Places.Editor.PlacesOperations.Compose(Spellbound.Core.Operations.OperationContext, Spellbound.Places.PlaceDefinition, System.UInt64) : static Spellbound.Core.Operations.OperationResult
+member Spellbound.Places.Editor.PlacesOperations.Parts(Spellbound.Core.Operations.OperationContext, Spellbound.Places.PlaceDefinition, System.Int32, System.Int32) : static Spellbound.Core.Operations.OperationResult
+member Spellbound.Places.Editor.PlacesPage.ContradictionLineClassName : const System.String = "places-contradiction-line"
+member Spellbound.Places.Editor.PlacesPage.ContradictionsName : const System.String = "places-contradictions"
+member Spellbound.Places.Editor.PlacesPage.CreateContent() : override UnityEngine.UIElements.VisualElement
+member Spellbound.Places.Editor.PlacesPage.FixedWidthFontPath : const System.String = "Fonts/RobotoMono/RobotoMono-Regular.ttf"
+member Spellbound.Places.Editor.PlacesPage.GridLineClassName : const System.String = "places-grid-line"
+member Spellbound.Places.Editor.PlacesPage.GridName : const System.String = "places-grid"
+member Spellbound.Places.Editor.PlacesPage.LayerLineClassName : const System.String = "places-layer-line"
+member Spellbound.Places.Editor.PlacesPage.NoArrangementLayerText : const System.String = "no arrangement layer"
+member Spellbound.Places.Editor.PlacesPage.NoContradictionsText : const System.String = "no contradictions"
+member Spellbound.Places.Editor.PlacesPage.PageTitle : const System.String = "Places"
+member Spellbound.Places.Editor.PlacesPage.PlaceListName : const System.String = "places-place-list"
+member Spellbound.Places.Editor.PlacesPage.Places : System.Collections.Generic.IReadOnlyList<Spellbound.Places.PlaceDefinition> { get; }
+member Spellbound.Places.Editor.PlacesPage.Refresh() : System.Void
+member Spellbound.Places.Editor.PlacesPage.Reroll() : System.Void
+member Spellbound.Places.Editor.PlacesPage.RerollName : const System.String = "places-reroll"
+member Spellbound.Places.Editor.PlacesPage.RerollText : const System.String = "Reroll"
+member Spellbound.Places.Editor.PlacesPage.Seed : System.UInt64 { get; }
+member Spellbound.Places.Editor.PlacesPage.SeedName : const System.String = "places-seed"
+member Spellbound.Places.Editor.PlacesPage.Select(Spellbound.Places.PlaceDefinition) : System.Void
+member Spellbound.Places.Editor.PlacesPage.Selected : Spellbound.Places.PlaceDefinition { get; }
+member Spellbound.Places.Editor.PlacesPage.StratumLineClassName : const System.String = "places-stratum-line"
+member Spellbound.Places.Editor.PlacesPage.new()
+member Spellbound.Places.NestedPlaceLayer.ArrangementLayerName : System.String { get; set; }
+member Spellbound.Places.NestedPlaceLayer.Cell : Spellbound.Places.Arrangement.CellAddress { get; set; }
+member Spellbound.Places.NestedPlaceLayer.CollectLayerReferences(System.Collections.Generic.List<Spellbound.Places.PlaceLayerReference>, System.String) : override System.Void
+member Spellbound.Places.NestedPlaceLayer.Place : Spellbound.Places.PlaceDefinition { get; set; }
+member Spellbound.Places.NestedPlaceLayer.RenameLayerReferences(System.String, System.String) : override System.Void
+member Spellbound.Places.NestedPlaceLayer.Validate(Spellbound.Core.Authoring.ValidationReport, System.String) : override System.Void
+member Spellbound.Places.NestedPlaceLayer.new()
+member Spellbound.Places.Owners.IPlaceLayerOwner<TLayer>.Capture(Spellbound.Places.Owners.PlaceCaptureContext) : TLayer
+member Spellbound.Places.Owners.IPlaceLayerOwner<TLayer>.Stamp(TLayer, Spellbound.Places.Owners.PlaceStampContext) : System.Void
+member Spellbound.Places.Owners.PlaceCaptureContext.Frame : Spellbound.Core.ReferenceFrames.ReferenceFrameId { get; }
+member Spellbound.Places.Owners.PlaceCaptureContext.LayerName : System.String { get; }
+member Spellbound.Places.Owners.PlaceCaptureContext.Report : Spellbound.Core.Authoring.ValidationReport { get; }
+member Spellbound.Places.Owners.PlaceCaptureContext.new(System.String, Spellbound.Core.Authoring.ValidationReport, Spellbound.Core.ReferenceFrames.ReferenceFrameId)
+member Spellbound.Places.Owners.PlaceLayerOwnerAttribute.new()
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.Capture(System.Type, Spellbound.Places.Owners.PlaceCaptureContext) : Spellbound.Places.PlaceLayer
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.Default : static Spellbound.Places.Owners.PlaceLayerOwnerRegistry { get; }
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.Has(System.Type) : System.Boolean
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.LayerTypes : System.Collections.Generic.IReadOnlyList<System.Type> { get; }
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.Reset() : static System.Void
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.TryStamp(Spellbound.Places.PlaceLayer, Spellbound.Places.Owners.PlaceStampContext) : System.Boolean
+member Spellbound.Places.Owners.PlaceLayerOwnerRegistry.new(System.Collections.Generic.IEnumerable<System.Object>)
+member Spellbound.Places.Owners.PlaceStampContext.Frame : Spellbound.Core.ReferenceFrames.ReferenceFrameId { get; }
+member Spellbound.Places.Owners.PlaceStampContext.Owners : Spellbound.Places.Owners.PlaceLayerOwnerRegistry { get; }
+member Spellbound.Places.Owners.PlaceStampContext.Preview : System.Boolean { get; }
+member Spellbound.Places.Owners.PlaceStampContext.Report : Spellbound.Core.Authoring.ValidationReport { get; }
+member Spellbound.Places.Owners.PlaceStampContext.new(Spellbound.Core.Authoring.ValidationReport, Spellbound.Core.ReferenceFrames.ReferenceFrameId, System.Boolean, Spellbound.Places.Owners.PlaceLayerOwnerRegistry)
+member Spellbound.Places.PlaceDefinition.AddLayer<TLayer>(TLayer) : TLayer
+member Spellbound.Places.PlaceDefinition.DefaultMovementProfileName : System.String { get; }
+member Spellbound.Places.PlaceDefinition.Entrance : Spellbound.Places.PlaceEntrance { get; }
+member Spellbound.Places.PlaceDefinition.FindLayer(System.String) : Spellbound.Places.PlaceLayer
+member Spellbound.Places.PlaceDefinition.HarvestableLayers : System.Collections.Generic.IReadOnlyList<Spellbound.Places.PlaceLayer> { get; }
+member Spellbound.Places.PlaceDefinition.Layers : System.Collections.Generic.IReadOnlyList<Spellbound.Places.PlaceLayer> { get; }
+member Spellbound.Places.PlaceDefinition.NestingDepthLimit : System.Int32 { get; }
+member Spellbound.Places.PlaceDefinition.PlacementPoints : System.Collections.Generic.IReadOnlyList<Spellbound.Places.PlacementPoint> { get; }
+member Spellbound.Places.PlaceDefinition.Rules : System.Collections.Generic.IReadOnlyList<Spellbound.Places.Arrangement.CellRule> { get; }
+member Spellbound.Places.PlaceDefinition.Validate(Spellbound.Core.Authoring.ValidationReport) : System.Void
+member Spellbound.Places.PlaceDefinition.new()
+member Spellbound.Places.PlaceEntrance.Cell : Spellbound.Places.Arrangement.CellAddress { get; set; }
+member Spellbound.Places.PlaceEntrance.Facing : Spellbound.Places.Arrangement.HorizontalDirection { get; set; }
+member Spellbound.Places.PlaceEntrance.IsSet : System.Boolean { get; }
+member Spellbound.Places.PlaceEntrance.LayerName : System.String { get; set; }
+member Spellbound.Places.PlaceEntrance.new()
+member Spellbound.Places.PlaceFindingCodes.EntranceCellOutsideGrid : const System.String = "places.entrance-cell-outside-grid"
+member Spellbound.Places.PlaceFindingCodes.EntranceLayerUnknown : const System.String = "places.entrance-layer-unknown"
+member Spellbound.Places.PlaceFindingCodes.GridSizeEven : const System.String = "places.grid-size-even"
+member Spellbound.Places.PlaceFindingCodes.LayerCarried : const System.String = "places.layer-carried"
+member Spellbound.Places.PlaceFindingCodes.LayerEmpty : const System.String = "places.layer-empty"
+member Spellbound.Places.PlaceFindingCodes.LayerNameDuplicate : const System.String = "places.layer-name-duplicate"
+member Spellbound.Places.PlaceFindingCodes.LayerNameEmpty : const System.String = "places.layer-name-empty"
+member Spellbound.Places.PlaceFindingCodes.LayerNotInstalled : const System.String = "places.layer-not-installed"
+member Spellbound.Places.PlaceFindingCodes.LayerOwnerInstalled : const System.String = "places.layer-owner-installed"
+member Spellbound.Places.PlaceFindingCodes.NestingCellOutsideGrid : const System.String = "places.nesting-cell-outside-grid"
+member Spellbound.Places.PlaceFindingCodes.NestingCycle : const System.String = "places.nesting-cycle"
+member Spellbound.Places.PlaceFindingCodes.NestingDepth : const System.String = "places.nesting-depth"
+member Spellbound.Places.PlaceFindingCodes.NestingLayerUnknown : const System.String = "places.nesting-layer-unknown"
+member Spellbound.Places.PlaceFindingCodes.NestingPlaceEmpty : const System.String = "places.nesting-place-empty"
+member Spellbound.Places.PlaceFindingCodes.PartNameDuplicate : const System.String = "places.part-name-duplicate"
+member Spellbound.Places.PlaceFindingCodes.PartNameEmpty : const System.String = "places.part-name-empty"
+member Spellbound.Places.PlaceFindingCodes.PoolPartUnknown : const System.String = "places.pool-part-unknown"
+member Spellbound.Places.PlaceFindingCodes.RuleCellOutsideGrid : const System.String = "places.rule-cell-outside-grid"
+member Spellbound.Places.PlaceFindingCodes.RulePartUnknown : const System.String = "places.rule-part-unknown"
+member Spellbound.Places.PlaceFindingCodes.WeightNegative : const System.String = "places.weight-negative"
+member Spellbound.Places.PlaceLayer.CollectLayerReferences(System.Collections.Generic.List<Spellbound.Places.PlaceLayerReference>, System.String) : virtual System.Void
+member Spellbound.Places.PlaceLayer.IsHarvestable : virtual System.Boolean { get; }
+member Spellbound.Places.PlaceLayer.LayerName : System.String { get; set; }
+member Spellbound.Places.PlaceLayer.PlacementPoints() : virtual System.Collections.Generic.IEnumerable<Spellbound.Places.PlacementPoint>
+member Spellbound.Places.PlaceLayer.RenameLayerReferences(System.String, System.String) : virtual System.Void
+member Spellbound.Places.PlaceLayer.Validate(Spellbound.Core.Authoring.ValidationReport, System.String) : abstract System.Void
+member Spellbound.Places.PlaceLayer.new()
+member Spellbound.Places.PlaceLayerReference.SourceLocation : System.String { get; }
+member Spellbound.Places.PlaceLayerReference.TargetLayerName : System.String { get; }
+member Spellbound.Places.PlaceLayerReference.new(System.String, System.String)
+member Spellbound.Places.PlaceReferenceTable.LayerNames : System.Collections.Generic.IReadOnlyList<System.String> { get; }
+member Spellbound.Places.PlaceReferenceTable.LayerReferences : System.Collections.Generic.IReadOnlyList<Spellbound.Places.PlaceLayerReference> { get; }
+member Spellbound.Places.PlaceReferenceTable.Of(Spellbound.Places.PlaceDefinition) : static Spellbound.Places.PlaceReferenceTable
+member Spellbound.Places.PlaceReferenceTable.ReferencesTo(System.String) : System.Collections.Generic.IReadOnlyList<Spellbound.Places.PlaceLayerReference>
+member Spellbound.Places.PlaceReferenceTable.RenameLayer(Spellbound.Places.PlaceDefinition, System.String, System.String) : static System.Void
+member Spellbound.Places.PlacementPoint.LayerName : System.String { get; }
+member Spellbound.Places.PlacementPoint.Location : System.String { get; }
+member Spellbound.Places.PlacementPoint.Position : UnityEngine.Vector3 { get; }
+member Spellbound.Places.PlacementPoint.new(System.String, System.String, UnityEngine.Vector3)
+member Spellbound.Places.PlacesKit.Compose(Spellbound.Places.Arrangement.ArrangementDescription, System.UInt64) : static Spellbound.Places.Arrangement.CompositionResult
+member Spellbound.Places.PlacesKit.Stamp(Spellbound.Places.PlaceDefinition, Spellbound.Places.Owners.PlaceStampContext) : static System.Boolean
+member Spellbound.Places.PlacesObservations.CompositionContradictions : static readonly Spellbound.Core.Observations.Counter
+type Spellbound.Places.Arrangement.AllowedRegionRule : sealed class : Spellbound.Places.Arrangement.CellRule
+type Spellbound.Places.Arrangement.ArrangementComposer : static class
+type Spellbound.Places.Arrangement.ArrangementDescription : sealed class
+type Spellbound.Places.Arrangement.ArrangementLayer : class : Spellbound.Places.PlaceLayer
+type Spellbound.Places.Arrangement.CellAddress : struct : System.IEquatable<Spellbound.Places.Arrangement.CellAddress>
+type Spellbound.Places.Arrangement.CellContradiction : sealed class
+type Spellbound.Places.Arrangement.CellRegion : struct
+type Spellbound.Places.Arrangement.CellRule : abstract class
+type Spellbound.Places.Arrangement.CompositionCell : readonly struct
+type Spellbound.Places.Arrangement.CompositionCellState : enum
+type Spellbound.Places.Arrangement.CompositionResult : sealed class
+type Spellbound.Places.Arrangement.FixedCellRule : sealed class : Spellbound.Places.Arrangement.CellRule
+type Spellbound.Places.Arrangement.HorizontalDirection : enum
+type Spellbound.Places.Arrangement.PartDescription : sealed class
+type Spellbound.Places.Arrangement.PartFaces : struct
+type Spellbound.Places.Arrangement.PoolEntry : sealed class
+type Spellbound.Places.Arrangement.SocketCompatibility : static class
+type Spellbound.Places.Arrangement.SocketKind : enum
+type Spellbound.Places.Arrangement.SocketKindText : static class
+type Spellbound.Places.Arrangement.StratumDescription : sealed class
+type Spellbound.Places.Arrangement.WeightedPoolRule : sealed class : Spellbound.Places.Arrangement.CellRule
+type Spellbound.Places.Editor.IPlaceLayerInspectorActions : interface
+type Spellbound.Places.Editor.LayerOwnerInstalledCheck : sealed class : Spellbound.Core.Authoring.Editor.IDefinitionCheck<Spellbound.Places.PlaceDefinition>
+type Spellbound.Places.Editor.LayerRename : readonly struct
+type Spellbound.Places.Editor.PlaceDefinitionEditor : sealed class : UnityEditor.Editor
+type Spellbound.Places.Editor.PlaceDefinitionPreviewer : sealed class : Spellbound.Core.Authoring.Editor.DefinitionPreviewer<Spellbound.Places.PlaceDefinition>
+type Spellbound.Places.Editor.PlaceDuplicateReport : sealed class
+type Spellbound.Places.Editor.PlaceDuplicator : static class
+type Spellbound.Places.Editor.PlaceLayerInspectorAction : sealed class
+type Spellbound.Places.Editor.PlaceLayerInspectorActionAttribute : sealed class : System.Attribute
+type Spellbound.Places.Editor.PlaceLayerInspectorActionRegistry : sealed class
+type Spellbound.Places.Editor.PlacesOperations : static class
+type Spellbound.Places.Editor.PlacesPage : sealed class : Spellbound.Core.Window.Editor.WindowPage
+type Spellbound.Places.NestedPlaceLayer : sealed class : Spellbound.Places.PlaceLayer
+type Spellbound.Places.Owners.IPlaceLayerOwner<TLayer> : interface
+type Spellbound.Places.Owners.PlaceCaptureContext : sealed class
+type Spellbound.Places.Owners.PlaceLayerOwnerAttribute : sealed class : System.Attribute
+type Spellbound.Places.Owners.PlaceLayerOwnerRegistry : sealed class
+type Spellbound.Places.Owners.PlaceStampContext : sealed class
+type Spellbound.Places.PlaceDefinition : class : UnityEngine.ScriptableObject, Spellbound.Core.Authoring.IAuthoredDefinition
+type Spellbound.Places.PlaceEntrance : sealed class
+type Spellbound.Places.PlaceFindingCodes : static class
+type Spellbound.Places.PlaceLayer : abstract class
+type Spellbound.Places.PlaceLayerReference : readonly struct
+type Spellbound.Places.PlaceReferenceTable : sealed class
+type Spellbound.Places.PlacementPoint : readonly struct
+type Spellbound.Places.PlacesKit : static class
+type Spellbound.Places.PlacesObservations : static class
+PlaceDefinition.defaultMovementProfileName : string
+PlaceDefinition.entrance : PlaceEntrance
+PlaceDefinition.entrance.cell : CellAddress
+PlaceDefinition.entrance.cell.column : int
+PlaceDefinition.entrance.cell.row : int
+PlaceDefinition.entrance.cell.stratum : int
+PlaceDefinition.entrance.facing : Enum
+PlaceDefinition.entrance.layerName : string
+PlaceDefinition.layers : managed-reference list
+PlaceDefinition.nestingDepthLimit : int
