@@ -15,5 +15,12 @@ namespace Spellbound.Places {
         public const string RulePartUnknown = "places.rule-part-unknown";
         public const string RuleCellOutsideGrid = "places.rule-cell-outside-grid";
         public const string WeightNegative = "places.weight-negative";
+        public const string NestingPlaceEmpty = "places.nesting-place-empty";
+        public const string NestingCycle = "places.nesting-cycle";
+        public const string NestingDepth = "places.nesting-depth";
+        public const string NestingLayerUnknown = "places.nesting-layer-unknown";
+        public const string NestingCellOutsideGrid = "places.nesting-cell-outside-grid";
+        public const string EntranceLayerUnknown = "places.entrance-layer-unknown";
+        public const string EntranceCellOutsideGrid = "places.entrance-cell-outside-grid";
     }
 }
