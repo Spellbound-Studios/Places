@@ -27,6 +27,8 @@ namespace Spellbound.Places.Editor.Tests {
         [TestCase(PlaceFindingCodes.NestingCellOutsideGrid, "places.nesting-cell-outside-grid")]
         [TestCase(PlaceFindingCodes.EntranceLayerUnknown, "places.entrance-layer-unknown")]
         [TestCase(PlaceFindingCodes.EntranceCellOutsideGrid, "places.entrance-cell-outside-grid")]
+        [TestCase(PlaceFindingCodes.LayerNotPackable, "places.layer-not-packable")]
+        [TestCase(PlaceFindingCodes.LayerLayoutOutdated, "places.layer-layout-outdated")]
         public void EachCodeReadsAsWritten(string code, string expected) {
             Assert.AreEqual(expected, code);
         }
@@ -38,7 +40,7 @@ namespace Spellbound.Places.Editor.Tests {
                 .Select(field => (string)field.GetRawConstantValue())
                 .ToList();
 
-            Assert.AreEqual(20, codes.Count);
+            Assert.AreEqual(22, codes.Count);
             Assert.AreEqual(codes.Count, codes.Distinct().Count());
 
             foreach (var code in codes) {
