@@ -34,9 +34,17 @@ namespace PlacesGym.Editor {
                     + "; the composed place needs " + GridSize);
             }
 
-            ((List<PartDescription>)layer.Parts).AddRange(parts);
-            ((List<StratumDescription>)layer.Strata).AddRange(strata);
-            ((List<PoolEntry>)layer.CentrePool).AddRange(centrePool);
+            foreach (var part in parts) {
+                layer.AddPart(part);
+            }
+
+            foreach (var stratum in strata) {
+                layer.AddStratum(stratum);
+            }
+
+            foreach (var entry in centrePool) {
+                layer.AddCentrePoolEntry(entry);
+            }
 
             var existing = AssetDatabase.LoadAssetAtPath<PlaceDefinition>(AssetPath);
 

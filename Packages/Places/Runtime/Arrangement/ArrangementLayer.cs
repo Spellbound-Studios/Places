@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Spellbound.Core.Authoring;
+using Spellbound.Core.Tooling;
 using UnityEngine;
 
 namespace Spellbound.Places.Arrangement {
@@ -12,7 +13,7 @@ namespace Spellbound.Places.Arrangement {
         [SerializeField] private List<PartDescription> parts = new();
         [SerializeField] private List<StratumDescription> strata = new();
         [SerializeField] private List<PoolEntry> centrePool = new();
-        [SerializeReference] private List<CellRule> rules = new();
+        [SerializeReference] [SerializeReferenceDropdown] private List<CellRule> rules = new();
         [SerializeField] private ulong seed;
 
         public int GridSize => gridSize;
@@ -26,8 +27,45 @@ namespace Spellbound.Places.Arrangement {
             set => seed = value;
         }
 
+        public PartDescription AddPart(PartDescription part) {
+            if (part == null) {
+                throw new ArgumentNullException(nameof(part));
+            }
+
+            parts.Add(part);
+            return part;
+        }
+
+        public StratumDescription AddStratum(StratumDescription stratum) {
+            if (stratum == null) {
+                throw new ArgumentNullException(nameof(stratum));
+            }
+
+            strata.Add(stratum);
+            return stratum;
+        }
+
+        public PoolEntry AddCentrePoolEntry(PoolEntry entry) {
+            if (entry == null) {
+                throw new ArgumentNullException(nameof(entry));
+            }
+
+            centrePool.Add(entry);
+            return entry;
+        }
+
+        public CellRule AddRule(CellRule rule) {
+            if (rule == null) {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
+            rules.Add(rule);
+            return rule;
+        }
+
         public ArrangementDescription ToDescription() {
-            return new ArrangementDescription(gridSize, parts, strata, centrePool, rules);
+            return new ArrangementDescription(gridSize, new List<PartDescription>(parts),
+                new List<StratumDescription>(strata), new List<PoolEntry>(centrePool), new List<CellRule>(rules));
         }
 
         public bool ContainsCell(CellAddress cell) {

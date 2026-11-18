@@ -3,13 +3,14 @@
 using System;
 using System.Collections.Generic;
 using Spellbound.Core.Authoring;
+using Spellbound.Core.Tooling;
 using Spellbound.Places.Arrangement;
 using UnityEngine;
 
 namespace Spellbound.Places {
     [CreateAssetMenu(fileName = "Place", menuName = "Spellbound/Places/Place")]
     public class PlaceDefinition : ScriptableObject, IAuthoredDefinition {
-        [SerializeReference] private List<PlaceLayer> layers = new();
+        [SerializeReference] [SerializeReferenceDropdown] private List<PlaceLayer> layers = new();
         [SerializeField] private PlaceEntrance entrance = new();
         [SerializeField] private string defaultMovementProfileName = "";
         [SerializeField] private int nestingDepthLimit = 4;

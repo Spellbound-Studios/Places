@@ -66,12 +66,12 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
-        public void TheLayerListIsASerializeReferenceListWithoutATypePicker() {
+        public void TheLayerListIsASerializeReferenceListWithATypePicker() {
             var field = typeof(PlaceDefinition).GetField("layers", BindingFlags.NonPublic | BindingFlags.Instance);
 
             Assert.IsNotNull(field);
             Assert.IsNotNull(field.GetCustomAttribute<SerializeReference>());
-            Assert.IsNull(field.GetCustomAttribute<SerializeReferenceDropdownAttribute>());
+            Assert.IsNotNull(field.GetCustomAttribute<SerializeReferenceDropdownAttribute>());
         }
 
         [Test]
