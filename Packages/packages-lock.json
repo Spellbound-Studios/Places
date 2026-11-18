@@ -13,7 +13,7 @@
         "com.unity.inputsystem": "1.11.2",
         "com.unity.ugui": "2.0.0"
       },
-      "hash": "ba640f603c0eb8acf479eeb570a027d568b11c7f"
+      "hash": "0ea31e5a60d712a023f09a0d1be9fdf6d9d824cc"
     },
     "com.spellboundstudios.packagecheck": {
       "version": "https://github.com/Spellbound-Studios/PackageCheck.git?path=/Packages/PackageCheck#beta",
