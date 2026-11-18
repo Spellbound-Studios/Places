@@ -1,22 +1,14 @@
 // Copyright (c) Spellbound Studios. All rights reserved.
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using NUnit.Framework;
 using Spellbound.Core.Authoring;
 using Spellbound.Core.Authoring.Editor;
-using Spellbound.Places.Tests.CarriedFixture;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Spellbound.Places.Editor.Tests {
     public class LayerOwnerInstalledCheckTests {
-        private const string CarriedAssembly = "asm: Spellbound.Places.Tests.CarriedFixture";
-        private const string AbsentAssembly = "asm: Spellbound.Places.Tests.CarriedFixture.Absent";
-
         private PlacesTestFolder _folder;
 
         [SetUp]
@@ -44,7 +36,7 @@ namespace Spellbound.Places.Editor.Tests {
 
         [Test]
         public void ACarriedLayerIsReportedAtItsSlot() {
-            var place = CreateCarriedPlace(_folder.Path("CarriedFirst.asset"), true);
+            var place = CarriedPlaces.CreateCarriedPlace(_folder.Path("CarriedFirst.asset"), true);
 
             var report = Check(place);
 
@@ -56,7 +48,7 @@ namespace Spellbound.Places.Editor.Tests {
 
         [Test]
         public void ReportsLayerCarriedAtItsSlot() {
-            var place = CreateCarriedPlace(_folder.Path("CarriedSecond.asset"), false);
+            var place = CarriedPlaces.CreateCarriedPlace(_folder.Path("CarriedSecond.asset"), false);
 
             var report = Check(place);
 
@@ -72,7 +64,7 @@ namespace Spellbound.Places.Editor.Tests {
 
         [Test]
         public void PreviewLinesSayHowManyLayersAreCarried() {
-            var place = CreateCarriedPlace(_folder.Path("CarriedPreview.asset"), false);
+            var place = CarriedPlaces.CreateCarriedPlace(_folder.Path("CarriedPreview.asset"), false);
 
             var lines = new LayerOwnerInstalledCheck().PreviewLines(place);
 
@@ -123,23 +115,8 @@ namespace Spellbound.Places.Editor.Tests {
 
         [Test]
         public void AnEmptySlotAheadOfACarriedLayerIsNeverToldToRemoveTheSlot() {
-            var path = _folder.Path("EmptyThenCarried.asset");
-            var place = ScriptableObject.CreateInstance<PlaceDefinition>();
-            ((List<PlaceLayer>)place.Layers).Add(null);
-            place.AddLayer(new FixtureCarriedLayer { LayerName = "carried", label = "ore", weight = 7 });
-            AssetDatabase.CreateAsset(place, path);
-            AssetDatabase.SaveAssets();
+            var loaded = CarriedPlaces.CreateCarriedPlace(_folder.Path("EmptyThenCarried.asset"), true, true);
 
-            var text = File.ReadAllText(path);
-            Assert.AreEqual(1, Regex.Matches(text, Regex.Escape(CarriedAssembly)).Count, text);
-            File.WriteAllText(path, text.Replace(CarriedAssembly, AbsentAssembly));
-            LogAssert.Expect(LogType.Warning,
-                new Regex("^Missing types referenced from component PlaceDefinition on game object"));
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-            var loaded = AssetDatabase.LoadAssetAtPath<PlaceDefinition>(path);
-
-            Assert.IsNotNull(loaded, path);
-            Assert.IsTrue(SerializationUtility.HasManagedReferencesWithMissingTypes(loaded));
             Assert.IsNull(loaded.Layers[0]);
             Assert.IsNull(loaded.Layers[1]);
 
@@ -168,35 +145,6 @@ namespace Spellbound.Places.Editor.Tests {
             var findings = report.Findings.Where(finding => finding.Code == code).ToArray();
             Assert.AreEqual(1, findings.Length, report.ToText());
             return findings[0];
-        }
-
-        private static PlaceDefinition CreateCarriedPlace(string path, bool carriedFirst) {
-            var place = ScriptableObject.CreateInstance<PlaceDefinition>();
-            var carried = new FixtureCarriedLayer { LayerName = "carried", label = "ore", weight = 7 };
-            if (carriedFirst) {
-                place.AddLayer(carried);
-            }
-
-            place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
-            if (!carriedFirst) {
-                place.AddLayer(carried);
-            }
-
-            AssetDatabase.CreateAsset(place, path);
-            AssetDatabase.SaveAssets();
-
-            var text = File.ReadAllText(path);
-            Assert.AreEqual(1, Regex.Matches(text, Regex.Escape(CarriedAssembly)).Count, text);
-            File.WriteAllText(path, text.Replace(CarriedAssembly, AbsentAssembly));
-            LogAssert.Expect(LogType.Warning,
-                new Regex("^Missing types referenced from component PlaceDefinition on game object"));
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-            var loaded = AssetDatabase.LoadAssetAtPath<PlaceDefinition>(path);
-
-            Assert.IsNotNull(loaded, path);
-            Assert.IsTrue(SerializationUtility.HasManagedReferencesWithMissingTypes(loaded));
-            Assert.IsNull(loaded.Layers[carriedFirst ? 0 : 1]);
-            return loaded;
         }
     }
 }
