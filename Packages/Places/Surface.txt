@@ -231,6 +231,8 @@ member Spellbound.Places.PlaceSection.PlaceName : System.String { get; }
 member Spellbound.Places.PlaceSection.Unpack(ref System.ReadOnlySpan<System.Byte>) : System.Void
 member Spellbound.Places.PlaceSection.new()
 member Spellbound.Places.PlaceSection.new(System.String)
+member Spellbound.Places.PlaceSections.TryPack(Spellbound.Places.PlaceDefinition, Spellbound.Core.Authoring.ValidationReport, out Spellbound.Places.PlaceSection) : static System.Boolean
+member Spellbound.Places.PlaceSections.TryUnpack(System.ReadOnlySpan<System.Byte>, Spellbound.Places.PlaceDefinition, Spellbound.Core.Authoring.ValidationReport) : static System.Boolean
 member Spellbound.Places.PlacementPoint.LayerName : System.String { get; }
 member Spellbound.Places.PlacementPoint.Location : System.String { get; }
 member Spellbound.Places.PlacementPoint.Position : UnityEngine.Vector3 { get; }
@@ -284,10 +286,11 @@ type Spellbound.Places.PlaceLayer : abstract class
 type Spellbound.Places.PlaceLayerReference : readonly struct
 type Spellbound.Places.PlaceReferenceTable : sealed class
 type Spellbound.Places.PlaceSection : sealed class : Spellbound.Core.Packing.IPacker
+type Spellbound.Places.PlaceSections : static class
 type Spellbound.Places.PlacementPoint : readonly struct
 type Spellbound.Places.PlacesKit : static class
 type Spellbound.Places.PlacesObservations : static class
-stored places.place 3ebc7c6c
+stored places.place 809fec42
 PlaceDefinition.defaultMovementProfileName : string
 PlaceDefinition.entrance : PlaceEntrance
 PlaceDefinition.entrance.cell : CellAddress
