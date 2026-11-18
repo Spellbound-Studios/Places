@@ -64,6 +64,57 @@ namespace Spellbound.Places.Editor.Tests {
             Assert.AreEqual("layers[1].gridSize", finding.Location);
         }
 
+        [TestCase("missing")]
+        [TestCase("deposits")]
+        public void ReportsEntranceLayerUnknownAtTheEntrance(string layerName) {
+            _place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
+            _place.AddLayer(new HarvestableTestLayer { LayerName = "deposits" });
+            _place.Entrance.LayerName = layerName;
+
+            var finding = Single(Validate(), PlaceFindingCodes.EntranceLayerUnknown);
+
+            Assert.AreEqual(FindingSeverity.Error, finding.Severity);
+            Assert.AreEqual("entrance", finding.Location);
+            StringAssert.Contains("'" + layerName + "'", finding.Message);
+        }
+
+        [TestCase(3, 0, 0)]
+        [TestCase(-1, 0, 0)]
+        [TestCase(0, 3, 0)]
+        [TestCase(0, -1, 0)]
+        [TestCase(0, 0, 1)]
+        [TestCase(0, 0, -1)]
+        public void ReportsEntranceCellOutsideGridAtTheEntrance(int column, int row, int stratum) {
+            _place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
+            _place.Entrance.LayerName = "arrangement";
+            _place.Entrance.Cell = new CellAddress(column, row, stratum);
+
+            var finding = Single(Validate(), PlaceFindingCodes.EntranceCellOutsideGrid);
+
+            Assert.AreEqual(FindingSeverity.Error, finding.Severity);
+            Assert.AreEqual("entrance", finding.Location);
+            StringAssert.Contains(_place.Entrance.Cell.ToString(), finding.Message);
+            StringAssert.Contains("3 by 3 grid of 1 strata", finding.Message);
+        }
+
+        [Test]
+        public void AnUnsetEntranceIsSilent() {
+            _place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
+            _place.Entrance.Cell = new CellAddress(99, 99, 99);
+
+            Assert.IsFalse(_place.Entrance.IsSet);
+            Assert.IsTrue(Validate().IsEmpty);
+        }
+
+        [Test]
+        public void AnEntranceInsideTheGridIsSilent() {
+            _place.AddLayer(ArrangementLayerValidationTests.CleanLayer());
+            _place.Entrance.LayerName = "arrangement";
+            _place.Entrance.Cell = new CellAddress(2, 2, 0);
+
+            Assert.IsTrue(Validate().IsEmpty);
+        }
+
         private ValidationReport Validate() {
             var report = new ValidationReport("place");
             _place.Validate(report);

@@ -14,11 +14,31 @@ namespace Spellbound.Places.Editor {
                 throw new ArgumentNullException(nameof(definition));
             }
 
-            var layers = definition.Layers;
             var lines = new List<string>();
+            AddLayers(definition, new List<PlaceDefinition>(), definition.NestingDepthLimit, lines);
+
+            return new DefinitionPreview(definition.name + ": " + definition.Layers.Count + " layers", lines: lines);
+        }
+
+        private static void AddLayers(PlaceDefinition place, List<PlaceDefinition> path, int depthLimit,
+            List<string> lines) {
+            var indent = new string(' ', path.Count * 2);
+
+            if (path.Contains(place)) {
+                lines.Add(indent + "(cycle: " + place.name + ")");
+                return;
+            }
+
+            if (path.Count > 0 && path.Count > depthLimit) {
+                lines.Add(indent + "(depth limit " + depthLimit + " reached)");
+                return;
+            }
+
+            path.Add(place);
+            var layers = place.Layers;
 
             for (var index = 0; index < layers.Count; index++) {
-                var location = "layers[" + index + "]";
+                var location = indent + "layers[" + index + "]";
                 var layer = layers[index];
 
                 if (layer == null) {
@@ -26,14 +46,26 @@ namespace Spellbound.Places.Editor {
                     continue;
                 }
 
-                lines.Add(location + " " + layer.GetType().Name + " '" + layer.LayerName + "'");
+                var line = location + " " + layer.GetType().Name + " '" + layer.LayerName + "'";
 
-                if (layer is ArrangementLayer arrangement) {
+                if (layer is NestedPlaceLayer nested) {
+                    lines.Add(line + " nests " + (nested.Place == null ? "nothing" : nested.Place.name));
+
+                    if (nested.Place != null) {
+                        AddLayers(nested.Place, path, depthLimit, lines);
+                    }
+
+                    continue;
+                }
+
+                lines.Add(line);
+
+                if (path.Count == 1 && layer is ArrangementLayer arrangement) {
                     AddGrid(arrangement, lines);
                 }
             }
 
-            return new DefinitionPreview(definition.name + ": " + layers.Count + " layers", lines: lines);
+            path.RemoveAt(path.Count - 1);
         }
 
         private static void AddGrid(ArrangementLayer arrangement, List<string> lines) {

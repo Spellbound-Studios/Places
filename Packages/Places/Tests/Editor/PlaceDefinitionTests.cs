@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Spellbound.Core.Authoring;
 using Spellbound.Core.Tooling;
 using Spellbound.Places.Arrangement;
+using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -65,12 +66,48 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
-        public void TheLayerListIsASerializeReferenceListWithoutATypePicker() {
+        public void TheLayerListIsASerializeReferenceListWithATypePicker() {
             var field = typeof(PlaceDefinition).GetField("layers", BindingFlags.NonPublic | BindingFlags.Instance);
 
             Assert.IsNotNull(field);
             Assert.IsNotNull(field.GetCustomAttribute<SerializeReference>());
-            Assert.IsNull(field.GetCustomAttribute<SerializeReferenceDropdownAttribute>());
+            Assert.IsNotNull(field.GetCustomAttribute<SerializeReferenceDropdownAttribute>());
+        }
+
+        [Test]
+        public void ANewPlaceHasNoEntranceNoMovementProfileAndANestingDepthLimitOfFour() {
+            Assert.IsNotNull(_place.Entrance);
+            Assert.IsFalse(_place.Entrance.IsSet);
+            Assert.AreEqual("", _place.DefaultMovementProfileName);
+            Assert.AreEqual(4, _place.NestingDepthLimit);
+        }
+
+        [Test]
+        public void FindLayerFindsAPresentLayerByItsName() {
+            var first = _place.AddLayer(new ArrangementLayer { LayerName = "first" });
+            var second = _place.AddLayer(new ArrangementLayer { LayerName = "second" });
+
+            Assert.AreSame(first, _place.FindLayer("first"));
+            Assert.AreSame(second, _place.FindLayer("second"));
+        }
+
+        [Test]
+        public void FindLayerOfAnUnknownNameOrOfNullIsNull() {
+            _place.AddLayer(new ArrangementLayer { LayerName = "first" });
+
+            Assert.IsNull(_place.FindLayer("First"));
+            Assert.IsNull(_place.FindLayer("unknown"));
+            Assert.IsNull(_place.FindLayer(null));
+        }
+
+        [Test]
+        public void TheEntranceMovementProfileAndDepthLimitAreSerializedFields() {
+            using var serialized = new SerializedObject(_place);
+
+            Assert.IsNotNull(serialized.FindProperty("entrance"));
+            Assert.IsNotNull(serialized.FindProperty("entrance.layerName"));
+            Assert.AreEqual("", serialized.FindProperty("defaultMovementProfileName").stringValue);
+            Assert.AreEqual(4, serialized.FindProperty("nestingDepthLimit").intValue);
         }
     }
 }

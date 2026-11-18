@@ -20,6 +20,13 @@ namespace Spellbound.Places.Editor.Tests {
         [TestCase(PlaceFindingCodes.RulePartUnknown, "places.rule-part-unknown")]
         [TestCase(PlaceFindingCodes.RuleCellOutsideGrid, "places.rule-cell-outside-grid")]
         [TestCase(PlaceFindingCodes.WeightNegative, "places.weight-negative")]
+        [TestCase(PlaceFindingCodes.NestingPlaceEmpty, "places.nesting-place-empty")]
+        [TestCase(PlaceFindingCodes.NestingCycle, "places.nesting-cycle")]
+        [TestCase(PlaceFindingCodes.NestingDepth, "places.nesting-depth")]
+        [TestCase(PlaceFindingCodes.NestingLayerUnknown, "places.nesting-layer-unknown")]
+        [TestCase(PlaceFindingCodes.NestingCellOutsideGrid, "places.nesting-cell-outside-grid")]
+        [TestCase(PlaceFindingCodes.EntranceLayerUnknown, "places.entrance-layer-unknown")]
+        [TestCase(PlaceFindingCodes.EntranceCellOutsideGrid, "places.entrance-cell-outside-grid")]
         public void EachCodeReadsAsWritten(string code, string expected) {
             Assert.AreEqual(expected, code);
         }
@@ -31,7 +38,7 @@ namespace Spellbound.Places.Editor.Tests {
                 .Select(field => (string)field.GetRawConstantValue())
                 .ToList();
 
-            Assert.AreEqual(13, codes.Count);
+            Assert.AreEqual(20, codes.Count);
             Assert.AreEqual(codes.Count, codes.Distinct().Count());
 
             foreach (var code in codes) {
