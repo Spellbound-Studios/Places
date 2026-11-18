@@ -1,4 +1,4 @@
-// Copyright (c) Spellbound Studios. All rights reserved.
+﻿// Copyright (c) Spellbound Studios. All rights reserved.
 
 using System.Linq;
 using System.Reflection;
