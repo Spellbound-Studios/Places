@@ -1,7 +1,7 @@
 {
   "name": "Spellbound.Places.Tests",
   "rootNamespace": "Spellbound.Places.Tests",
-  "references": ["Spellbound.Places", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+  "references": ["Spellbound.Places"],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

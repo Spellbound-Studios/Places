@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962a194318bb7b84187df0fb809d7cf3, type: 3}
+  m_Name: Places
+  m_EditorClassIdentifier: Spellbound.PackageCheck.Editor::Spellbound.PackageCheck.PackageLedger
+  waivers:
+  - rule: T1
+    revision: 1
+    subjects:
+    - Tests/Editor/Spellbound.Places.Editor.Tests.asmdef#701f1a38
+    reason: PackageCheck's D9 calls the TestRunner references of the test assemblies
+      unused and T1 requires them, so the two rules contradict each other; D9 stands
+      until PackageCheck settles the contradiction.
+    endsAt: 0.1.0
+    handle: pipeline
+    grouped: 0
+  - rule: T1
+    revision: 1
+    subjects:
+    - Tests/Runtime/Spellbound.Places.Tests.asmdef#53d231c7
+    reason: PackageCheck's D9 calls the TestRunner references of the test assemblies
+      unused and T1 requires them, so the two rules contradict each other; D9 stands
+      until PackageCheck settles the contradiction.
+    endsAt: 0.1.0
+    handle: pipeline
+    grouped: 0
+  answers:
+  - rule: T3
+    revision: 1
+    subject: IPlaceLayerInspectorActions
+    signature: 
+    answer: TestLayerInspectorActions in the editor tests is a custom implementation,
+      and PlaceLayerInspectorActionTests and PlaceDefinitionEditorTests find it and
+      draw its action.
+    handle: pipeline
+    byAgent: 1
+    confirmedBy: 
+  - rule: T3
+    revision: 1
+    subject: PlaceLayer
+    signature: 
+    answer: FixtureCarriedLayer in the test fixture assembly is a custom layer, and
+      CarriedLayerSurvivalTests, PlaceDuplicatorTests and PlacesKitStampTests run
+      a place holding it.
+    handle: pipeline
+    byAgent: 1
+    confirmedBy: 
+  - rule: T3
+    revision: 1
+    subject: IPlaceLayerOwner
+    signature: 
+    answer: FixtureLayerOwner in the test fixture assembly is a custom owner, and
+      the owner registry and PlacesKitStampTests stamp and capture through it.
+    handle: pipeline
+    byAgent: 1
+    confirmedBy: 
+  - rule: T3
+    revision: 1
+    subject: CellRule
+    signature: 
+    answer: The package itself ships three implementations, AllowedRegionRule, FixedCellRule
+      and WeightedPoolRule, and the composer tests run each through the base type.
+    handle: pipeline
+    byAgent: 1
+    confirmedBy: 
+  gates: []
