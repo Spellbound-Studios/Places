@@ -47,7 +47,7 @@ The binding rules are the line text at https://github.com/Spellbound-Studios/.gi
 
 ## Gaps
 
-- `ArrangementLayer` has no owner until step 27 names one, so `PlacesKit.Stamp` refuses any place that holds an arrangement layer.
+- `ArrangementLayer` has no owner type yet, so `PlacesKit.Stamp` refuses any place that holds an arrangement layer until a package registers an owner for it.
 - Pool weights are floats drawn through Places' own pick, not through Core's integer `WeightedTable`.
 - A carried layer cannot be mapped to its slot from Unity's own data, because `managedReferenceId` reads -2 for a slot whose type is missing; the check maps carried layers to slots by their order.
 - `ArrangementLayer.GridSize` has no setter, so a grid's size is set only in the inspector or in the asset.
