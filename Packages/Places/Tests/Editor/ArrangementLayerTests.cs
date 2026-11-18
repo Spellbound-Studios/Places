@@ -44,6 +44,22 @@ namespace Spellbound.Places.Editor.Tests {
         }
 
         [Test]
+        public void ContainsCellIsTrueInsideTheGridAndStrata() {
+            var layer = ArrangementLayerValidationTests.CleanLayer();
+
+            Assert.IsTrue(layer.ContainsCell(new CellAddress(0, 0, 0)));
+            Assert.IsTrue(layer.ContainsCell(new CellAddress(2, 2, 0)));
+            Assert.IsTrue(layer.ContainsCell(new CellAddress(1, 2, 0)));
+            Assert.IsFalse(layer.ContainsCell(new CellAddress(3, 0, 0)));
+            Assert.IsFalse(layer.ContainsCell(new CellAddress(-1, 0, 0)));
+            Assert.IsFalse(layer.ContainsCell(new CellAddress(0, 3, 0)));
+            Assert.IsFalse(layer.ContainsCell(new CellAddress(0, -1, 0)));
+            Assert.IsFalse(layer.ContainsCell(new CellAddress(0, 0, 1)));
+            Assert.IsFalse(layer.ContainsCell(new CellAddress(0, 0, -1)));
+            Assert.IsFalse(new ArrangementLayer().ContainsCell(new CellAddress(0, 0, 0)));
+        }
+
+        [Test]
         public void ValidateRefusesANullReport() {
             Assert.Throws<ArgumentNullException>(() => new ArrangementLayer().Validate(null, "layers[0]"));
         }

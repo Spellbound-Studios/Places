@@ -30,6 +30,11 @@ namespace Spellbound.Places.Arrangement {
             return new ArrangementDescription(gridSize, parts, strata, centrePool, rules);
         }
 
+        public bool ContainsCell(CellAddress cell) {
+            return cell.column >= 0 && cell.column < gridSize && cell.row >= 0 && cell.row < gridSize
+                && cell.stratum >= 0 && cell.stratum < strata.Count;
+        }
+
         public override void Validate(ValidationReport report, string location) {
             if (report == null) {
                 throw new ArgumentNullException(nameof(report));
@@ -134,8 +139,7 @@ namespace Spellbound.Places.Arrangement {
             }
 
             void CheckCell(CellAddress cell, string cellLocation) {
-                if (cell.column >= 0 && cell.column < gridSize && cell.row >= 0 && cell.row < gridSize
-                    && cell.stratum >= 0 && cell.stratum < strata.Count) {
+                if (ContainsCell(cell)) {
                     return;
                 }
 
