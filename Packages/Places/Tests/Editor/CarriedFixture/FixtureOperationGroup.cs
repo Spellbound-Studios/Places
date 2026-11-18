@@ -2,4 +2,4 @@
 
 using Spellbound.Core.Operations;
 
-[assembly: OperationGroup("places-fixture", Listed = false)]
+[assembly: OperationGroup("places_fixture", Listed = false)]
