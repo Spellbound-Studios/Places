@@ -1,4 +1,4 @@
-// Copyright (c) Spellbound Studios. All rights reserved.
+﻿// Copyright (c) Spellbound Studios. All rights reserved.
 
 namespace Spellbound.Places {
     public static class PlaceFindingCodes {
@@ -22,5 +22,7 @@ namespace Spellbound.Places {
         public const string NestingCellOutsideGrid = "places.nesting-cell-outside-grid";
         public const string EntranceLayerUnknown = "places.entrance-layer-unknown";
         public const string EntranceCellOutsideGrid = "places.entrance-cell-outside-grid";
+        public const string LayerNotPackable = "places.layer-not-packable";
+        public const string LayerLayoutOutdated = "places.layer-layout-outdated";
     }
 }

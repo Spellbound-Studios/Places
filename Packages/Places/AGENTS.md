@@ -6,7 +6,7 @@ A place is an authored unit of content: a `PlaceDefinition` asset holding typed 
 
 ## Front door
 
-`PlacesKit`: `Compose(arrangement, seed)` composes an arrangement description at a seed and returns the grid with its contradictions; `Stamp(place, context)` stamps every layer of a place through its installed owner, all or nothing. The `places` operations below read a place from the command line and write nothing.
+`PlacesKit`: `Compose(arrangement, seed)` composes an arrangement description at a seed and returns the grid with its contradictions; `Stamp(place, context)` stamps every layer of a place through its installed owner, all or nothing. `PlaceSections`: `TryPack(place, report, out section)` packs a place as the `places.place` section, each layer packing itself through Core's `IPacker` with its layout fingerprint, and `TryUnpack(bytes, into, report)` rebuilds the layers into a place, refusing an empty slot, a layer that does not pack itself, a layer type that is not installed and a layer packed with another layout. The `places` operations below read a place from the command line and write nothing.
 
 <!-- spellbound:operations 10839e05 -->
 com.spellboundstudios.places
